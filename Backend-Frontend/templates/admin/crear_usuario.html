@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h4 class="mb-0">
+                        {% if editando %}
+                            <i class="bi bi-pencil-square"></i> Editar Usuario: {{ form.instance.username }}
+                        {% else %}
+                            <i class="bi bi-person-plus-fill"></i> Crear Nuevo Usuario
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" id="userForm">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3" id="container_{{ field.name }}" 
+                                {% if editando and field.name == 'password' %}style="display:none;"{% endif %}>
+                                <label class="form-label fw-bold">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        {% if editando %}
+                        <div class="mb-3 text-center">
+                            <button type="button" class="btn btn-outline-warning btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#modalPassword">
+                                <i class="bi bi-key"></i> Cambiar Contraseña
+                            </button>
+                        </div>
+                        {% endif %}
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary rounded-pill">
+                                {% if editando %}Guardar Cambios{% else %}Crear Usuario{% endif %}
+                            </button>
+                            <a href="{% url 'lista_usuarios' %}" class="btn btn-light rounded-pill">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if editando %}
+<div class="modal fade" id="modalPassword" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow">
+            <div class="modal-header bg-warning text-dark border-0">
+                <h5 class="modal-title fw-bold">Cambiar Credenciales</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'cambiar_password_admin' form.instance.id %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body p-4">                    
+                {% if not user.is_superuser and user.profile.role != 'OWNER' %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Contraseña Anterior</label>
+                    <input type="password" name="old_password" class="form-control rounded-pill" required>
+                    <div class="form-text text-muted small">Por seguridad, confirma tu clave actual.</div>
+                </div>
+                <hr>
+                {% endif %}
+            
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nueva Contraseña</label>
+                    <input type="password" name="new_password" class="form-control rounded-pill" required minlength="4">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Confirmar Nueva Contraseña</label>
+                    <input type="password" name="confirm_password" class="form-control rounded-pill" required minlength="4">
+                </div>
+                </div>
+                <div class="modal-footer border-0 p-3">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-warning rounded-pill px-4">Actualizar Contraseña</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.querySelector('select[name="role"]');
+        const branchContainer = document.getElementById('container_branch');
+
+        function toggleBranchVisibility() {
+            if (roleSelect && roleSelect.value === 'OWNER') {
+                branchContainer.style.display = 'none';
+            } else if (branchContainer) {
+                branchContainer.style.display = 'block';
+            }
+        }
+        if (roleSelect) {
+            toggleBranchVisibility();
+            roleSelect.addEventListener('change', toggleBranchVisibility);
+        }
+    });
+    const passwordForm = document.querySelector('#modalPassword form');
+    if (passwordForm) {
+    passwordForm.addEventListener('submit', function(e) {
+        const newPass = this.querySelector('input[name="new_password"]').value;
+        const confPass = this.querySelector('input[name="confirm_password"]').value;
+
+        if (newPass !== confPass) {
+            e.preventDefault(); // Detiene el envío del formulario
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de coincidencia',
+                text: 'Las nuevas contraseñas no coinciden. Por favor, verifícalas.',
+                confirmButtonColor: '#ffc107',
+                confirmButtonText: 'Entendido'
+            });
+        }
+    });
+}
+</script>
+{% endblock %}

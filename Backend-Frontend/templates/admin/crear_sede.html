@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0" style="border-radius: 20px;">
+                <!-- Header Negro estilo Savannah -->
+                <div class="card-header bg-dark text-white p-4" style="border-radius: 20px 20px 0 0;">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="bi bi-geo-alt me-2"></i>
+                        {% if editando %} Editar Sede: {{ sede.name }} {% else %} Nueva Sede {% endif %}
+                    </h3>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    <!-- Mensaje informativo sobre el trigger de inventario -->
+                    <div class="alert alert-info small border-0" style="border-radius: 10px; background-color: rgba(13, 202, 240, 0.1); color: #055160;">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        Al crear esta sede, el sistema vinculará automáticamente todos los ingredientes existentes a su inventario local con cantidad inicial 0.
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Nombre de la Sede -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Nombre de la Sede</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}<div class="text-danger small">{{ form.name.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Dirección (Cambiado de location a address según Supabase) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Dirección / Ubicación</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}<div class="text-danger small">{{ form.address.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Teléfono (Nuevo campo disponible en Supabase) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Teléfono de contacto</label>
+                            {{ form.phone }}
+                        </div>
+
+                        <!-- Botonera -->
+                        <div class="d-flex gap-2 justify-content-end mt-5">
+                            <a href="{% url 'lista_sedes' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold shadow-sm">
+                                {% if editando %} ACTUALIZAR SEDE {% else %} CREAR SEDE Y VINCULAR {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

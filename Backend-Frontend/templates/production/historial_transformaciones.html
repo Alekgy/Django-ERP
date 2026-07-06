@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Historial de Producción</h2>
+        <a href="{% url 'nueva_transformacion' %}" class="btn btn-dark rounded-pill px-4">
+            + NUEVA TRANSFORMACIÓN
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small text-uppercase">
+                        <tr>
+                            <th class="px-4 py-3">Fecha</th>
+                            <th class="py-3">Producto Obtenido</th>
+                            <th class="py-3">Cantidad</th>
+                            <th class="py-3">Costo Total</th>
+                            <th class="py-3 text-end px-4">Detalle Materia Prima</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in transformaciones %}
+                        <tr>
+                            <td class="px-4 text-muted small">{{ t.created_at|date:"d M, Y H:i" }}</td>
+                            <td><span class="fw-bold text-dark">{{ t.result_ingredient.name }}</span></td>
+                            <td>{{ t.quantity_produced|intcomma }} {{ t.result_ingredient.unit_measure.abbreviation }}</td>
+                            <td class="text-success fw-bold">$ {{ t.cost_total|intcomma }}</td>
+                            <td class="text-end px-4">
+                                <!-- Botón para desplegar detalles -->
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#detail{{ t.id }}">
+                                    Ver insumos
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Fila colapsable de detalles -->
+                        <tr class="collapse bg-light" id="detail{{ t.id }}">
+                            <td colspan="5" class="px-5 py-3">
+                                <div class="small">
+                                    <strong class="text-uppercase text-muted">Insumos consumidos:</strong>
+                                    <ul class="list-inline mt-2">
+                                        {% for item in t.items.all %}
+                                        <li class="list-inline-item me-4">
+                                            <i class="bi bi-arrow-right-short"></i> 
+                                            {{ item.ingredient.name }}: <strong>{{ item.quantity_used|intcomma }}</strong>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">No se han registrado transformaciones aún.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+# Entornos virtuales (busca en la raíz)
+savannah/
+venv/
+env/
+
+# Variables de entorno
+.env
+
+# Python (busca en cualquier subcarpeta)
+**/__pycache__/
+**/*.pyc
+
+# Base de datos
+**/db.sqlite3
+
+# Sistema
+.DS_Store

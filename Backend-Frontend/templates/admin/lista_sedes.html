@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">Gestión de Sedes / Sucursales</h2>
+        <a href="{% url 'crear_sede' %}" class="btn btn-dark rounded-pill px-4 shadow-sm">
+            <i class="bi bi-plus-lg me-2"></i> AGREGAR SEDE
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small text-uppercase">
+                        <tr>
+                            <th class="px-4 py-3">Nombre de la Sede</th>
+                            <th class="py-3">Dirección / Ubicación</th>
+                            <th class="py-3">Teléfono</th>
+                            <th class="py-3 text-end px-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in sedes %}
+                        <tr>
+                            <td class="px-4">
+                                <!-- El s.id es el UUID generado por Supabase -->
+                                <a href="{% url 'editar_sede' s.id %}" class="text-decoration-none text-dark fw-bold hover-link">
+                                    {{ s.name }} <i class="bi bi-pencil-square ms-1 small text-muted"></i>
+                                </a>
+                            </td>
+                            <!-- CAMBIO: s.location -> s.address -->
+                            <td><span class="text-muted small"><i class="bi bi-geo-alt me-1"></i>{{ s.address }}</span></td>
+                            <!-- Nuevo campo: s.phone -->
+                            <td><span class="text-muted small"><i class="bi bi-telephone me-1"></i>{{ s.phone|default:"--" }}</span></td>
+                            
+                            <td class="text-end px-4">
+                                <button type="button" class="btn btn-outline-danger btn-sm rounded-circle border-0" 
+                                        data-bs-toggle="modal" data-bs-target="#deleteModalSede{{ s.id }}">
+                                    &times;
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- MODAL DE CONFIRMACIÓN CON ID UUID -->
+                        <div class="modal fade" id="deleteModalSede{{ s.id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow" style="border-radius: 20px;">
+                                    <div class="modal-body p-5 text-center">
+                                        <div class="text-danger mb-4" style="font-size: 3rem;">
+                                            <i class="bi bi-exclamation-triangle"></i>
+                                        </div>
+                                        <h4 class="fw-bold">¿Eliminar esta sede?</h4>
+                                        <p class="text-muted">Vas a borrar <strong>{{ s.name }}</strong>. Ten en cuenta que esto eliminará permanentemente el historial de ventas e inventario de esta sucursal.</p>
+                                        
+                                        <div class="d-flex gap-2 justify-content-center mt-4">
+                                            <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{% url 'eliminar_sede' s.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger rounded-pill px-4 fw-bold">SÍ, ELIMINAR</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                No hay sedes registradas. <a href="{% url 'crear_sede' %}">Agrega la primera aquí</a>.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-link:hover {
+        color: #d4af37 !important; /* Dorado Savannah */
+        transition: 0.2s;
+    }
+</style>
+{% endblock %}

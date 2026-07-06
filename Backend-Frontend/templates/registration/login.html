@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Estilos personalizados -->
+<style>
+    .login-container {
+        background-color: #f0f2f5; 
+        min-height: 80vh; /* Ajustado para que no choque con el navbar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-card {
+        background-color: #AFACAC; 
+        border: none;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+        padding: 40px;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .form-control-custom {
+        background-color: #ffffff; 
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        padding: 12px 15px;
+        width: 100%;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control-custom:focus {
+        border-color: #212529;
+        box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.1);
+        outline: none;
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-dark" style="letter-spacing: 3px;">SAVANNAH</h1>
+            <p class="text-muted small fw-bold">Acceso al Sistema ERP</p>
+        </div>
+
+        <!-- El action vacío envía el POST a la misma URL (configurada en urls.py) -->
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_username" class="form-label small fw-bold text-dark ms-1">Nombre de Usuario</label>
+                <input type="text" name="username" id="id_username" class="form-control-custom" placeholder="Ej: admin_savannah" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="id_password" class="form-label small fw-bold text-dark ms-1">Contraseña</label>
+                <input type="password" name="password" id="id_password" class="form-control-custom" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100 rounded-pill py-3 fw-bold shadow-sm text-uppercase" style="letter-spacing: 1px;">
+                Entrar a la Barra
+            </button>
+        </form>
+
+        {% if form.errors or login_error %}
+            <div class="alert alert-danger mt-3 py-2 small text-center border-0" style="border-radius: 10px; background-color: rgba(220, 53, 69, 0.1); color: #dc3545;">
+                Credenciales inválidas. Inténtalo de nuevo.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

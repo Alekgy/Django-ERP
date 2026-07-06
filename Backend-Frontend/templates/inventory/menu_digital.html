@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h2 class="display-6">Menú Digital 🍸</h2>
+    <!-- Sugerencia: En el futuro podrías pasar el nombre de la sede dinámicamente -->
+    <p class="text-muted">Mesa {{ n_mesa }} - Savannah ERP</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for producto in productos %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0 card-dashboard">
+            <!-- CAMBIO 1: Usar 'image_path' que es el campo conectado a Supabase Storage -->
+            {% if producto.image_path %}
+                <img src="{{ producto.image_path.url }}" class="card-img-top" alt="{{ producto.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <!-- Imagen por defecto si no hay en el Storage -->
+                <img src="{% static 'images/margarita_prueba.jpg' %}" class="card-img-top" alt="Coctel Savannah" style="height: 200px; object-fit: cover;">
+            {% endif %}
+
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ producto.name }}</h5>
+                <p class="card-text text-success fw-bold">${{ producto.sale_price|intcomma }}</p>
+                
+                <!-- CAMBIO 2: Asegurar que data-id envíe el UUID string de Supabase -->
+                <button class="btn btn-savannah w-100 btn-add" 
+                        data-id="{{ producto.id }}" 
+                        data-name="{{ producto.name }}" 
+                        data-price="{{ producto.sale_price }}">
+                    Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal del Carrito -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white" style="border: 1px solid #d4af37;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Tu Comanda - Mesa {{ n_mesa }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items-list"></div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <h5>Total:</h5>
+                    <h5 id="cart-total-price">$0.00</h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir pidiendo</button>
+                <button type="button" class="btn btn-savannah" onclick="enviarPedidoAlBackend()">Confirmar Pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Botón Flotante -->
+<div class="position-fixed bottom-0 end-0 m-4">
+    <button class="btn btn-dark btn-lg shadow rounded-pill" 
+            onclick="mostrarCarrito()" 
+            data-bs-toggle="modal" 
+            data-bs-target="#cartModal">
+        🛒 <span id="cart-count" class="badge bg-danger">0</span> Ver Pedido
+    </button>
+</div>
+
+<script>
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function actualizarContador() {
+        const counter = document.getElementById('cart-count');
+        if(counter) counter.innerText = carrito.length;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    document.querySelectorAll('.btn-add').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = {
+                // El ID que viene aquí ya es el UUID de Supabase
+                id: button.dataset.id,
+                name: button.dataset.name,
+                price: parseFloat(button.dataset.price)
+            };
+            carrito.push(item);
+            actualizarContador();
+            button.innerText = "¡Añadido!";
+            setTimeout(() => { button.innerText = "Añadir al Carrito"; }, 1000);
+        });
+    });
+
+    function mostrarCarrito() {
+        carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const listContainer = document.getElementById('cart-items-list');
+        const totalContainer = document.getElementById('cart-total-price');
+        
+        listContainer.innerHTML = '';
+        let total = 0;
+
+        if (carrito.length === 0) {
+            listContainer.innerHTML = '<p class="text-center text-muted">No has seleccionado cocteles aún.</p>';
+            totalContainer.innerText = "$0.00";
+        } else {
+            carrito.forEach((item, index) => {
+                total += item.price;
+                const fila = `
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="mb-0 text-white">${item.name}</h6>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-savannah me-2">$${item.price.toFixed(2)}</span>
+                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarDelCarrito(${index})">×</button>
+                        </div>
+                    </div>`;
+                listContainer.innerHTML += fila;
+            });
+            totalContainer.innerText = `$${total.toFixed(2)}`;
+        }
+    }
+
+    function eliminarDelCarrito(index) {
+        carrito.splice(index, 1);
+        actualizarContador();
+        mostrarCarrito(); // Refrescamos la vista del modal
+    }
+
+    function enviarPedidoAlBackend() {
+        if (carrito.length === 0) return;
+
+        fetch('{% url "procesar_pedido" sede_id=sede_id %}', { 
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ 
+                items: carrito,
+                n_mesa: "{{ n_mesa }}" 
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);
+                carrito = [];
+                actualizarContador();
+                window.location.reload();
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Hubo un error al enviar el pedido.");
+        });
+    }
+
+    actualizarContador();
+</script>
+{% endblock %}

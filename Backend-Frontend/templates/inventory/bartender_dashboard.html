@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block selector_sedes %}
+    {% if user.is_superuser or user.profile.role == "OWNER" %}
+        <div class="nav-item dropdown me-3">
+            <a class="btn btn-sm btn-outline-light dropdown-toggle fw-bold rounded-pill px-3" href="#" id="branchDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-geo-alt-fill me-1 text-warning"></i>
+                {{ sede_activa_nombre }}
+            </a>
+            <ul class="dropdown-menu shadow border-0 mt-2" aria-labelledby="branchDropdown">
+                <li>
+                    <a class="dropdown-item fw-bold text-primary" href="{% url 'cambiar_sede_sesion' 0 %}">
+                        <i class="bi bi-globe me-2"></i>Ver Todas las Sedes (Global)
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                {% for s in sedes_selector %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'cambiar_sede_sesion' s.id %}">
+                            <i class="bi bi-building me-2"></i>{{ s.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock selector_sedes %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Torre de Control - Barra 🍸</h1>
+    <span class="badge bg-danger pulse">En Vivo</span>
+</div>
+
+<div class="row">
+    {% for mesa, items in ordenes.items %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card bg-dark text-white border-warning h-100 shadow">
+            <div class="card-header border-warning bg-secondary d-flex justify-content-between align-items-center">
+                <strong class="text-warning">{{ mesa }}</strong>
+                <span class="badge bg-primary">{{ items|length }} Items</span>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush bg-transparent">
+                    {% for item in items %}
+                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-secondary">
+                        <div>
+                            <span class="fw-bold">{{ item.producto.name }}</span>
+                            <br>
+                            <small class="text-muted">Pedido Agrupado</small>
+                        </div>
+                        <span class="badge bg-warning text-dark fs-6">x{{ item.cantidad }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card-footer border-warning bg-transparent">
+                <form action="{% url 'completar_pedido' items.0.sale_id_referencia %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success w-100 fw-bold">
+                        Completar Orden ✅
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center mt-5">
+        <h3 class="text-muted">No hay pedidos pendientes. ¡Buen trabajo!</h3>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .pulse {
+        animation: shadow-pulse 1s infinite;
+    }
+    @keyframes shadow-pulse {
+        0% { box-shadow: 0 0 0 0px rgba(220, 53, 69, 0.4); }
+        100% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    }
+    /* Mejora visual para las listas en modo oscuro */
+    .list-group-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">Gestión de Productos</h2>
+        <a href="{% url 'crear_producto' %}" class="btn btn-dark rounded-pill px-4 shadow-sm">
+            <i class="bi bi-plus-lg me-2"></i> AGREGAR PRODUCTO
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small text-uppercase">
+                        <tr>
+                            <th class="px-4 py-3">Nombre</th>
+                            <th class="py-3">Precio de Venta</th>
+                            <th class="py-3">Estado</th>
+                            <th class="py-3 text-end px-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in productos %}
+                        <tr>
+                            <td class="px-4">
+                                <div class="d-flex align-items-center">
+                                    <!-- CAMBIO: Usamos image_path.url para el Storage de Supabase -->
+                                    {% if p.image_path %}
+                                        <img src="{{ p.image_path.url }}" class="rounded me-3" style="width: 45px; height: 45px; object-fit: cover; border: 1px solid #eee;">
+                                    {% else %}
+                                        <div class="rounded me-3 bg-light d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; border: 1px solid #eee;">
+                                            <i class="bi bi-image text-muted"></i>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <a href="{% url 'editar_producto' p.id %}" class="text-decoration-none text-dark fw-bold hover-link">
+                                        {{ p.name }} <i class="bi bi-pencil-square ms-1 small text-muted"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <!-- CAMBIO: nombre de columna sale_price -->
+                            <td>$ {{ i.current_unit_cost|intcomma }}</td>
+                            <td>
+                                {% if p.is_active %}
+                                    <span class="badge bg-success-subtle text-success rounded-pill px-3">Activo</span>
+                                {% else %}
+                                    <span class="badge bg-danger-subtle text-danger rounded-pill px-3">Inactivo</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end px-4">
+                                <!-- El ID del modal soporta perfectamente el string del UUID -->
+                                <button type="button" class="btn btn-outline-danger btn-sm rounded-circle border-0" 
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal{{ p.id }}">
+                                    &times;
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- MODAL DE ELIMINACIÓN -->
+                        <div class="modal fade" id="deleteModal{{ p.id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow" style="border-radius: 20px;">
+                                    <div class="modal-body p-5 text-center">
+                                        <div class="text-danger mb-4" style="font-size: 3rem;">
+                                            <i class="bi bi-exclamation-octagon"></i>
+                                        </div>
+                                        <h4 class="fw-bold">¿Eliminar producto?</h4>
+                                        <p class="text-muted">Estás a punto de borrar <strong>{{ p.name }}</strong>. Se eliminará también su receta asociada.</p>
+                                        
+                                        <div class="d-flex gap-2 justify-content-center mt-4">
+                                            <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{% url 'eliminar_producto' p.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger rounded-pill px-4 fw-bold">ELIMINAR DEFINITIVAMENTE</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                No hay productos registrados aún. <a href="{% url 'crear_producto' %}">Crea el primero aquí</a>.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-link:hover {
+        color: #d4af37 !important;
+        transition: 0.2s ease-in-out;
+    }
+</style>
+{% endblock %}

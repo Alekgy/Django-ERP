@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col text-center text-md-start">
+        <h1 class="display-5 fw-bold">Savannah <span class="text-muted fs-4">| Panel de Control</span></h1>
+        <p class="text-muted">
+            {% if user.is_authenticated %}
+                Bienvenido de nuevo, <strong>{{ user.username }}</strong>.
+            {% else %}
+                Bienvenido a <strong>Savannah</strong>. Elige una opción para continuar.
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="row text-center justify-content-center">
+
+    <!-- Opción pública: Menú Digital -->
+    {% comment %} <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+            <div class="card-body p-4">
+                <div class="display-4 mb-3">🍸</div>
+                <h5 class="card-title fw-bold">Realizar Pedido</h5>
+                <p class="card-text text-muted">Explora nuestra carta digital y realiza tu pedido al instante.</p>
+                <a href="{% url 'menu_digital_local' 1 %}" class="btn btn-dark rounded-pill px-5 py-2 fw-bold shadow-sm">ABRIR CARTA</a>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+                <div class="card-body p-4">
+                    <div class="display-4 mb-3">💸</div>
+                    <h5 class="card-title fw-bold">Caja</h5>
+                    <p class="card-text text-muted">Gestiona los movimientos de caja.</p>
+                    <a href="{% url 'modulo_caja' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">ABRIR CAJA</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+                <div class="card-body p-4">
+                    <div class="display-4 mb-3">🍹</div>
+                    <h5 class="card-title fw-bold">Elaboración</h5>
+                    <p class="card-text text-muted">Gestión de órdenes en tiempo real.</p>
+                    <a href="{% url 'bartender_dashboard' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">VER ELABORACIÓN</a>
+                </div>
+            </div>
+        </div>
+
+        {% if user.is_superuser or user.profile.role == "ADMIN_SEDE" or es_owner %}
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+                <div class="card-body p-4">
+                    <div class="display-4 mb-3">📦</div>
+                    <h5 class="card-title fw-bold">Inventario</h5>
+                    <p class="card-text text-muted">Consulta de stock actual y unidades de medida por sede.</p>
+                    <a href="{% url 'ver_inventario' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">VER ALMACÉN</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+                <div class="card-body p-4">
+                    <div class="display-4 mb-3">📥</div>
+                    <h5 class="card-title fw-bold">Ingresos</h5>
+                    <p class="card-text text-muted">Registro dinámico de entrada de insumos y materia prima.</p>
+                    <a href="{% url 'gestion_inventario' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">REGISTRAR</a>
+                </div>
+            </div>
+        </div>
+
+
+        {% if user.is_superuser or es_owner %}
+
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+                <div class="card-body p-4">
+                    <div class="display-4 mb-3">🫙</div>
+                    <h5 class="card-title fw-bold">Producción</h5>
+                    <p class="card-text text-muted">Transforma materia prima en pre-mezclas o insumos.</p>
+                    <a href="{% url 'historial_transformaciones' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">PROCESAR</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #212529; color: white; border-radius: 25px;">
+                <div class="card-body p-4 text-center">
+                    <div class="display-4 mb-3">⚙️</div>
+                    <h5 class="card-title fw-bold">Administración</h5>
+                    <p class="card-text opacity-75">Configuración maestra de productos, sedes y parámetros.</p>
+                    <a href="{% url 'admin_panel' %}" class="btn btn-light rounded-pill px-4 fw-bold">ENTRAR AL PANEL</a>
+                </div>
+            </div>
+        </div>
+
+
+    {% endif %}
+
+    {% comment %} {% if not user.is_authenticated %}
+        <div class="col-12 mt-5">
+            <hr class="w-25 mx-auto">
+            <a href="{% url 'login' %}" class="text-muted small text-decoration-none">Acceso Administrativo</a>
+        </div>
+    {% endif %} {% endcomment %}
+
+{% endif %}</div>
+{% endblock %}

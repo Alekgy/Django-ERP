@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Cargamos los iconos de Bootstrap por si no están en el base.html -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div class="container py-5">
+    <div class="row mb-4 text-center text-md-start">
+        <div class="col">
+            <h1 class="fw-bold">Configuración Maestro <span class="text-muted fs-4">| Savannah</span></h1>
+            <p class="text-muted">Gestión centralizada de los pilares del negocio en Supabase.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Tarjeta Productos -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-box-seam display-4 text-primary"></i>
+                    <h5 class="card-title fw-bold mt-3">Productos</h5>
+                    <p class="card-text text-muted small">Crea nuevos items, precios y recetas conectadas al Storage.</p>
+                    <a href="{% url 'lista_productos' %}" class="btn btn-primary rounded-pill w-100 fw-bold">Gestionar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Ingredientes -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-egg-fried display-4 text-success"></i>
+                    <h5 class="card-title fw-bold mt-3">Ingredientes</h5>
+                    <p class="card-text text-muted small">Gestiona materia prima y costos promedio de compra.</p>
+                    <a href="{% url 'lista_ingredientes' %}" class="btn btn-success rounded-pill w-100 fw-bold">Gestionar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Sedes -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-geo-alt display-4 text-danger"></i>
+                    <h5 class="card-title fw-bold mt-3">Sedes</h5>
+                    <p class="card-text text-muted small">Administra direcciones y puntos de venta activos.</p>
+                    <a href="{% url 'lista_sedes' %}" class="btn btn-danger rounded-pill w-100 fw-bold">Gestionar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-geo-alt display-4 text-danger"></i>
+                    <h5 class="card-title fw-bold mt-3">Empleados</h5>
+                    <p class="card-text text-muted small">Administra los empleados de la empresa.</p>
+                    <a href="{% url 'lista_usuarios' %}" class="btn btn-secondary">Gestionar Empleados</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <a href="{% url 'home' %}" class="btn btn-link text-decoration-none text-muted">
+            <i class="bi bi-arrow-left"></i> Volver al Inicio
+        </a>
+    </div>
+</div>
+{% endblock %}

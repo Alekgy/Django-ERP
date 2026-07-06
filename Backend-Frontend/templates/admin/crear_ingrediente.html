@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0" style="border-radius: 20px;">
+                <!-- Header Negro estilo Savannah -->
+                <div class="card-header bg-dark text-white p-4" style="border-radius: 20px 20px 0 0;">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="bi bi-egg-fried me-2"></i>
+                        {% if editando %} Editar: {{ ingrediente.name }} {% else %} Nuevo Ingrediente {% endif %}
+                    </h3>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Nombre -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Nombre del Insumo</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}<div class="text-danger small">{{ form.name.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Unidad de Medida (ForeignKey) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Unidad de Medida</label>
+                            <!-- Django renderizará esto como un <select> con los UUID de Supabase -->
+                            {{ form.unit_measure }}
+                            <div class="form-text mt-1">Selecciona la unidad de medida (Ej: ml, gr, oz).</div>
+                            {% if form.unit_measure.errors %}<div class="text-danger small">{{ form.unit_measure.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Umbral de Stock Mínimo -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Alerta Stock Mínimo</label>
+                            {{ form.min_stock_threshold }}
+                            <div class="form-text mt-1">Recibirás alertas cuando el stock baje de este valor.</div>
+                        </div>
+
+                        <!-- Categoría -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-uppercase small text-muted">Categoría</label>
+                            {% if form.category %}
+                                {{ form.category }}
+                            {% else %}
+                                <p class="text-danger small">Error: El campo 'category' no existe en el Form.</p>
+                            {% endif %}
+                            {% if form.category.errors %}
+                                <div class="text-danger pill small">{{ form.category.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex gap-2 justify-content-end mt-5">
+                            <a href="{% url 'lista_ingredientes' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold shadow-sm">
+                                {% if editando %} ACTUALIZAR {% else %} GUARDAR INGREDIENTE {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

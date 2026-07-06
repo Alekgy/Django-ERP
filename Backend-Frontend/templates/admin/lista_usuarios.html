@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Gestión de Personal</h2>
+        <a href="{% url 'crear_usuario_staff' %}" class="btn btn-primary rounded-pill shadow-sm">
+            <i class="bi bi-person-plus-fill"></i> Nuevo Usuario
+        </a>
+    </div>
+
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Usuario</th>
+                            <th>Nombre Completo</th>
+                            <th>Rol</th>
+                            <th>Sede Asignada</th>
+                            <th class="text-end pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in usuarios %}
+                        <tr>
+                            <td class="ps-4">
+                                <div class="fw-bold text-dark">{{ u.username }}</div>
+                                <small class="text-muted">{{ u.email }}</small>
+                            </td>
+                            <td>{{ u.first_name }} {{ u.last_name }}</td>
+                            <td>
+                                {% if u.profile.role == 'OWNER' %}
+                                    <span class="badge bg-danger-subtle text-danger rounded-pill">Dueño</span>
+                                {% elif u.profile.role == 'ADMIN_SEDE' %}
+                                    <span class="badge bg-primary-subtle text-primary rounded-pill">Admin Sede</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary rounded-pill">Staff</span>
+                                {% endif %}
+                                
+                                {% if u.is_superuser %}
+                                    <span class="badge bg-dark rounded-pill">Master</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if u.profile.branch %}
+                                    <span class="text-dark"><i class="bi bi-geo-alt"></i> {{ u.profile.branch.name }}</span>
+                                {% else %}
+                                    <span class="text-muted italic">Global / Todas</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group shadow-sm">
+                                    <a href="{% url 'editar_usuario' u.id %}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmarEliminacion('{{ u.id }}', '{{ u.username }}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                
+                                    <form id="form-eliminar-{{ u.id }}" action="{% url 'eliminar_usuario' u.id %}" method="POST" style="display: none;">
+                                        {% csrf_token %}
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                No hay usuarios registrados que coincidan con tu nivel de acceso.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmarEliminacion(id, nombre) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `Vas a eliminar al usuario "${nombre}". Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        borderRadius: '15px'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si confirma, enviamos el formulario oculto
+            document.getElementById('form-eliminar-' + id).submit();
+        }
+    })
+}
+</script>
+{% endblock %}
