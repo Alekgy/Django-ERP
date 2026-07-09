@@ -17,7 +17,11 @@ urlpatterns = [
     
     # Dashboard de Barra
     path('barra/', views.bartender_dashboard, name='bartender_dashboard'),
-    path('barra/completar/<uuid:sale_id>/', views.completar_pedido, name='completar_pedido'),
+    path('barra/completar/<uuid:sale_id>/', views.completar_pedido, name='completar_pedido_barra'),
+    
+    # Dashboard de Cocina
+    path('cocina/', views.kitchen_dashboard, name='kitchen_dashboard'),
+    path('cocina/completar/<uuid:sale_id>/', views.completar_pedido, name='completar_pedido_cocina'),
     
     # Inventario
     path('inventario/ingreso/', views.gestion_inventario, name='gestion_inventario'),

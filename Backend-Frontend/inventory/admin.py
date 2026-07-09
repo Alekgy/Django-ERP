@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Branches, Ingredients, Products, 
-    Recipes, Inventories, Sales, UnitMeasures
+    Recipes, Inventories, Sales, UnitMeasures, UserProfile
 )
 
 class InventoriesInline(admin.TabularInline):
@@ -42,6 +42,11 @@ class BranchesAdmin(admin.ModelAdmin):
 class InventoriesAdmin(admin.ModelAdmin):
     list_display = ('branch', 'ingredient', 'stock_level')
     list_filter = ('branch', 'ingredient')
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'role', 'branch')
+    list_filter = ('role', 'branch')
     
 @admin.register(Sales)
 class SalesAdmin(admin.ModelAdmin):

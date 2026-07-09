@@ -29,7 +29,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Torre de Control - Barra 🍸</h1>
+    <h1>Torre de Control - Cocina 🍳</h1>
     <span class="badge bg-danger pulse">En Vivo</span>
 </div>
 
@@ -56,7 +56,7 @@
                 </ul>
             </div>
             <div class="card-footer border-warning bg-transparent">
-                <form action="{% url 'completar_pedido_barra' items.0.sale_id_referencia %}" method="POST">
+                <form action="{% url 'completar_pedido_cocina' items.0.sale_id_referencia %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success w-100 fw-bold">
                         Completar Orden ✅
