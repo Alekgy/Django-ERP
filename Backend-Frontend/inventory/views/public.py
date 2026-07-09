@@ -19,10 +19,13 @@ def menu_digital(request, n_mesa, sede_id=None):
     if not sede:
         return render(request, 'inventory/error.html', {'mensaje': 'No hay ninguna sede configurada en el ERP.'})
 
-    productos = Products.objects.all()
+    # MODIFICACIÓN: Separar los productos por su área de preparación
+    productos_cocina = Products.objects.filter(preparation_area='COCINA', is_active=True)
+    productos_bar = Products.objects.filter(preparation_area='BAR', is_active=True)
 
     return render(request, 'inventory/menu_digital.html', {
-        'productos': productos,
+        'productos_cocina': productos_cocina,  # <-- Nueva variable
+        'productos_bar': productos_bar,        # <-- Nueva variable
         'sede_id': sede.id,
         'nombre_sede': sede.name,
         'n_mesa': n_mesa

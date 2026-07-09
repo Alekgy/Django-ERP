@@ -12,7 +12,7 @@ class UnitMeasures(models.Model):
     abbreviation = models.TextField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'unit_measures'
 
     def __str__(self):
@@ -27,7 +27,7 @@ class Branches(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'branches'
 
     def __str__(self):
@@ -56,7 +56,7 @@ class Ingredients(models.Model):
     deleted_at = models.DateTimeField(blank=True, null=True)  # Para soft-deletes si los usas en la DB
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ingredients'
 
     def __str__(self):
@@ -74,7 +74,7 @@ class Inventories(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'inventories'
         unique_together = (('branch', 'ingredient'),)
 
@@ -100,8 +100,17 @@ class Products(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
+    AREA_CHOICES = [
+        ('BAR', 'Barra de Cócteles'),
+        ('COCINA', 'Cocina / Alimentos'),
+    ]
+    preparation_area = models.CharField(
+        max_length=15, 
+        choices=AREA_CHOICES, 
+        default='BAR'
+    )
     class Meta:
-        managed = False
+        managed = True
         db_table = 'products'
 
     def __str__(self):
@@ -134,7 +143,7 @@ class Recipes(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'recipes'
 
 
@@ -151,7 +160,7 @@ class Sales(models.Model):
     total_cost_at_sale = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'sales'
 
     def save(self, *args, **kwargs):
@@ -179,7 +188,7 @@ class Transformations(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'transformations'
         verbose_name = 'Transformación'
 
@@ -200,7 +209,7 @@ class TransformationItems(models.Model):
     quantity_used = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'transformation_items'
         verbose_name = 'Ítem de Transformación'
 
@@ -223,7 +232,7 @@ class InventoryMovements(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'inventory_movements'
         verbose_name = 'Movimiento de Inventario'
 
@@ -249,7 +258,7 @@ class UserProfile(models.Model):
     branch = models.ForeignKey(Branches, on_delete=models.SET_NULL, null=True, blank=True, db_column='branch_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'user_profiles'
 
     def __str__(self):

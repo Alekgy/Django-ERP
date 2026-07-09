@@ -9,34 +9,88 @@
     <p class="text-muted">Mesa {{ n_mesa }} - Savannah ERP</p>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for producto in productos %}
-    <div class="col">
-        <div class="card h-100 shadow-sm border-0 card-dashboard">
-            <!-- CAMBIO 1: Usar 'image_path' que es el campo conectado a Supabase Storage -->
-            {% if producto.image_path %}
-                <img src="{{ producto.image_path.url }}" class="card-img-top" alt="{{ producto.name }}" style="height: 200px; object-fit: cover;">
-            {% else %}
-                <!-- Imagen por defecto si no hay en el Storage -->
-                <img src="{% static 'images/margarita_prueba.jpg' %}" class="card-img-top" alt="Coctel Savannah" style="height: 200px; object-fit: cover;">
-            {% endif %}
+<!-- Selector de Pestañas (Nav Tabs) -->
+<ul class="nav nav-tabs justify-content-center mb-4" id="menuTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-bold text-dark" id="cocina-tab" data-bs-toggle="tab" data-bs-target="#cocina-pane" type="button" role="tab" aria-controls="cocina-pane" aria-selected="true">
+            🍳 Cocina y Alimentos
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-dark" id="bar-tab" data-bs-toggle="tab" data-bs-target="#bar-pane" type="button" role="tab" aria-controls="bar-pane" aria-selected="false">
+            🍸 Barra de Cócteles
+        </button>
+    </li>
+</ul>
 
-            <div class="card-body text-center">
-                <h5 class="card-title">{{ producto.name }}</h5>
-                <p class="card-text text-success fw-bold">${{ producto.sale_price|intcomma }}</p>
-                
-                <!-- CAMBIO 2: Asegurar que data-id envíe el UUID string de Supabase -->
-                <button class="btn btn-savannah w-100 btn-add" 
-                        data-id="{{ producto.id }}" 
-                        data-name="{{ producto.name }}" 
-                        data-price="{{ producto.sale_price }}">
-                    Añadir al Carrito
-                </button>
+<!-- Contenido de las Pestañas (Tab Content) -->
+<div class="tab-content" id="menuTabsContent">
+    
+    <!-- PANEL DE COCINA -->
+    <div class="tab-pane fade show active" id="cocina-pane" role="tabpanel" aria-labelledby="cocina-tab" tabindex="0">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for producto in productos_cocina %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 card-dashboard">
+                    {% if producto.image_path %}
+                        <img src="{{ producto.image_path.url }}" class="card-img-top" alt="{{ producto.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'images/margarita_prueba.jpg' %}" class="card-img-top" alt="Comida Savannah" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ producto.name }}</h5>
+                        <p class="card-text text-muted small" style="height: 40px; overflow: hidden;">{{ producto.description }}</p>
+                        <p class="card-text text-success fw-bold">${{ producto.sale_price|intcomma }}</p>
+                        <button class="btn btn-savannah w-100 btn-add" 
+                                data-id="{{ producto.id }}" 
+                                data-name="{{ producto.name }}" 
+                                data-price="{{ producto.sale_price|stringformat:'d' }}">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
             </div>
+            {% empty %}
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">No hay platos disponibles en este momento.</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
+
+    <!-- PANEL DE BARRA -->
+    <div class="tab-pane fade" id="bar-pane" role="tabpanel" aria-labelledby="bar-tab" tabindex="0">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for producto in productos_bar %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 card-dashboard">
+                    {% if producto.image_path %}
+                        <img src="{{ producto.image_path.url }}" class="card-img-top" alt="{{ producto.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'images/margarita_prueba.jpg' %}" class="card-img-top" alt="Coctel Savannah" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ producto.name }}</h5>
+                        <p class="card-text text-muted small" style="height: 40px; overflow: hidden;">{{ producto.description }}</p>
+                        <p class="card-text text-success fw-bold">${{ producto.sale_price|intcomma }}</p>
+                        <button class="btn btn-savannah w-100 btn-add" 
+                                data-id="{{ producto.id }}" 
+                                data-name="{{ producto.name }}" 
+                                data-price="{{ producto.sale_price|stringformat:'d' }}">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">No hay bebidas disponibles en este momento.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
 
 <!-- Modal del Carrito -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
@@ -103,10 +157,16 @@
         
         listContainer.innerHTML = '';
         let total = 0;
-
+    
+        // CAMBIAR POR ESTO:
+        const formatearCOP = new Intl.NumberFormat('es-CO', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+    
         if (carrito.length === 0) {
-            listContainer.innerHTML = '<p class="text-center text-muted">No has seleccionado cocteles aún.</p>';
-            totalContainer.innerText = "$0.00";
+            listContainer.innerHTML = '<p class="text-center text-muted">No has seleccionado productos aún.</p>';
+            totalContainer.innerText = '$' + formatearCOP.format(0);
         } else {
             carrito.forEach((item, index) => {
                 total += item.price;
@@ -116,13 +176,14 @@
                             <h6 class="mb-0 text-white">${item.name}</h6>
                         </div>
                         <div class="text-end">
-                            <span class="badge bg-savannah me-2">$${item.price.toFixed(2)}</span>
+                            <span class="badge bg-savannah me-2">$${formatearCOP.format(item.price)}</span>
                             <button class="btn btn-sm btn-outline-danger" onclick="eliminarDelCarrito(${index})">×</button>
                         </div>
                     </div>`;
                 listContainer.innerHTML += fila;
             });
-            totalContainer.innerText = `$${total.toFixed(2)}`;
+
+            totalContainer.innerText = '$' + formatearCOP.format(total);
         }
     }
 

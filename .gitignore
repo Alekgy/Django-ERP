@@ -15,3 +15,6 @@ env/
 
 # Sistema
 .DS_Store
+
+# Scripts de carga
+cargar_pruebas.py
