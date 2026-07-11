@@ -82,12 +82,16 @@ def crear_producto(request):
             if formset.is_valid():
                 formset.save()
                 messages.success(request, f"Producto '{producto.name}' creado con éxito.")
-                return redirect('admin_panel')
+                return redirect('lista_productos')
     else:
         form = ProductForm()
         formset = RecipeFormSet()
         
-    return render(request, 'admin/crear_producto.html', {'form': form, 'formset': formset})
+    return render(request, 'admin/formulario_producto.html', {
+    'form': form, 
+    'formset': formset, 
+    'edit': False
+})
 
 @login_required
 @role_required('ADMIN_SEDE')
@@ -107,12 +111,17 @@ def editar_producto(request, producto_id):
             form.save()
             formset.save()
             messages.success(request, f"Producto '{producto.name}' actualizado.")
-            return redirect('admin_panel')
+            return redirect('lista_productos')
     else:
         form = ProductForm(instance=producto)
         formset = RecipeFormSet(instance=producto)
         
-    return render(request, 'admin/editar_producto.html', {'form': form, 'formset': formset, 'producto': producto})
+    return render(request, 'admin/formulario_producto.html', {
+    'form': form, 
+    'formset': formset, 
+    'producto': producto,
+    'edit': True
+})
 
 @login_required
 @role_required('ADMIN_SEDE')
@@ -126,7 +135,7 @@ def eliminar_producto(request, producto_id):
     if request.method == 'POST':
         producto.delete()
         messages.success(request, "Producto eliminado correctamente.")
-        return redirect('admin_panel')
+        return redirect('lista_productos')
     return render(request, 'admin/confirm_delete.html', {'object': producto, 'type': 'Producto'})
 
 
@@ -157,10 +166,10 @@ def crear_ingrediente(request):
                 ingrediente.branch = user_profile.branch
             ingrediente.save()
             messages.success(request, f"Ingrediente '{ingrediente.name}' creado con éxito.")
-            return redirect('admin_panel')
+            return redirect('lista_ingredientes')
     else:
         form = IngredientForm()
-    return render(request, 'admin/crear_ingrediente.html', {'form': form})
+    return render(request, 'admin/formulario_ingrediente.html', {'form': form, 'edit': False})
 
 @login_required
 @role_required('ADMIN_SEDE')
@@ -176,10 +185,10 @@ def editar_ingrediente(request, ingrediente_id):
         if form.is_valid():
             form.save()
             messages.success(request, f"Ingrediente '{ingrediente.name}' actualizado.")
-            return redirect('admin_panel')
+            return redirect('lista_ingredientes')
     else:
         form = IngredientForm(instance=ingrediente)
-    return render(request, 'admin/editar_ingrediente.html', {'form': form, 'ingrediente': ingrediente})
+    return render(request, 'admin/formulario_ingrediente.html', {'form': form, 'ingrediente': ingrediente, 'edit': True})
 
 @login_required
 @role_required('ADMIN_SEDE')
@@ -193,7 +202,7 @@ def eliminar_ingrediente(request, ingrediente_id):
     if request.method == 'POST':
         ingrediente.delete()
         messages.success(request, "Ingrediente eliminado correctamente.")
-        return redirect('admin_panel')
+        return redirect('lista_ingredientes')
     return render(request, 'admin/confirm_delete.html', {'object': ingrediente, 'type': 'Ingrediente'})
 
 
@@ -217,10 +226,10 @@ def crear_sede(request):
             sede.id = uuid.uuid4()
             sede.save()
             messages.success(request, f"Sede '{sede.name}' creada exitosamente.")
-            return redirect('admin_panel')
+            return redirect('lista_sedes')
     else:
         form = BranchForm()
-    return render(request, 'admin/crear_sede.html', {'form': form})
+    return render(request, 'admin/formulario_sede.html', {'form': form})
 
 @login_required
 @role_required('OWNER')
@@ -231,10 +240,10 @@ def editar_sede(request, sede_id):
         if form.is_valid():
             form.save()
             messages.success(request, f"Sede '{sede.name}' actualizada.")
-            return redirect('admin_panel')
+            return redirect('lista_sedes')
     else:
         form = BranchForm(instance=sede)
-    return render(request, 'admin/editar_sede.html', {'form': form, 'sede': sede})
+    return render(request, 'admin/formulario_sede.html', {'form': form, 'sede': sede})
 
 @login_required
 @role_required('OWNER')
@@ -243,5 +252,5 @@ def eliminar_sede(request, sede_id):
     if request.method == 'POST':
         sede.delete()
         messages.success(request, "Sede eliminada correctamente del sistema.")
-        return redirect('admin_panel')
+        return redirect('lista_sedes')
     return render(request, 'admin/confirm_delete.html', {'object': sede, 'type': 'Sede'})

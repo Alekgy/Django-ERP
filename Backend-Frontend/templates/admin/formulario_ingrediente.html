@@ -10,7 +10,7 @@
                 <div class="card-header bg-dark text-white p-4" style="border-radius: 20px 20px 0 0;">
                     <h3 class="mb-0 fw-bold">
                         <i class="bi bi-egg-fried me-2"></i>
-                        {% if editando %} Editar: {{ ingrediente.name }} {% else %} Nuevo Ingrediente {% endif %}
+                        {% if edit %} Editar: {{ ingrediente.name }} {% else %} Nuevo Ingrediente {% endif %}
                     </h3>
                 </div>
                 
@@ -58,7 +58,7 @@
                         <div class="d-flex gap-2 justify-content-end mt-5">
                             <a href="{% url 'lista_ingredientes' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
                             <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold shadow-sm">
-                                {% if editando %} ACTUALIZAR {% else %} GUARDAR INGREDIENTE {% endif %}
+                                {% if edit %} ACTUALIZAR {% else %} GUARDAR INGREDIENTE {% endif %}
                             </button>
                         </div>
                     </form>

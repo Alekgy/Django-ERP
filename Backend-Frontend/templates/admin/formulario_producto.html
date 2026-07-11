@@ -9,8 +9,7 @@
                 <!-- Encabezado Estilo Savannah -->
                 <div class="card-header bg-dark text-white p-4" style="border-radius: 20px 20px 0 0;">
                     <h3 class="mb-0 fw-bold">
-                        <i class="bi bi-pencil-square me-2"></i>
-                        {% if editando %} Editar: {{ form.instance.name }} {% else %} Registrar Producto {% endif %}
+                        {% if edit %} Editar: {{ form.instance.name }} {% else %} Registrar Producto {% endif %}
                     </h3>
                 </div>
                 
@@ -108,7 +107,7 @@
                         <div class="d-flex gap-2 justify-content-end mt-4">
                             <a href="{% url 'lista_productos' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
                             <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold shadow-sm">
-                                GUARDAR PRODUCTO Y RECETA
+                                {% if edit %} GUARDAR CAMBIOS {% else %} CREAR PRODUCTO Y RECETA {% endif %}
                             </button>
                         </div>
                     </form>
