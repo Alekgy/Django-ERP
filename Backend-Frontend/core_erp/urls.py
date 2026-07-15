@@ -53,6 +53,15 @@ urlpatterns = [
     path('transformaciones/nueva/', views.nueva_transformacion, name='nueva_transformacion'),
     path('transformaciones/historial/', views.historial_transformaciones, name='historial_transformaciones'),
     
+    # Graficos
+    path('admin-panel/reportes/', views.reportes_panel, name='reportes'),
+    path('api/ventas-producto-semana/', views.api_ventas_producto_semana, name='api_ventas_producto_semana'),
+    path('api/ventas-historico-semanal/', views.api_ventas_historico_semanal, name='api_ventas_historico_semanal'),
+    path('api/ventas-metodos-pago/', views.api_ventas_metodos_pago, name='api_ventas_metodos_pago'),
+    path('api/ventas-por-sede/', views.api_ventas_por_sede, name='api_ventas_por_sede'),
+    path('api/margen-ganancia-productos/', views.api_margen_ganancia_productos, name='api_margen_ganancia_productos'),
+    path('api/horas-pico-ventas/', views.api_horas_pico_ventas, name='api_horas_pico_ventas'),
+    
     # Módulo de Caja
     path('caja/', views.modulo_caja, name='modulo_caja'),
     

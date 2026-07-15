@@ -17,6 +17,18 @@ class UnitMeasures(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.abbreviation})"
+    
+class PaymentMethods(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.TextField() # Ej: "Efectivo", "Tarjeta Débito/Crédito"
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        managed = True
+        db_table = 'payment_methods'
+
+    def __str__(self):
+        return self.name
 
 
 class Branches(models.Model):
@@ -146,7 +158,6 @@ class Recipes(models.Model):
         managed = True
         db_table = 'recipes'
 
-
 class Sales(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     branch = models.ForeignKey(Branches, models.DO_NOTHING, db_column='branch_id', null=True, blank=True) 
@@ -158,18 +169,22 @@ class Sales(models.Model):
     is_prepared = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     total_cost_at_sale = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    payment_method = models.ForeignKey(
+        PaymentMethods, 
+        on_delete=models.PROTECT, 
+        db_column='payment_method_id', 
+        null=False 
+    )
 
     class Meta:
         managed = True
         db_table = 'sales'
 
     def save(self, *args, **kwargs):
-        # El modelo ahora solo calcula el costo teórico de la venta
         if not self.total_cost_at_sale:
             costo_teorico = self.product.calculate_theoretical_cost(branch_id=self.branch_id)
             self.total_cost_at_sale = costo_teorico * self.quantity
         super().save(*args, **kwargs)
-
 
 # ==========================================
 # 4. Transformaciones y Movimientos
@@ -263,3 +278,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
+    
