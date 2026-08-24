@@ -2,6 +2,7 @@
 savannah/
 venv/
 env/
+media/
 
 # Variables de entorno
 .env

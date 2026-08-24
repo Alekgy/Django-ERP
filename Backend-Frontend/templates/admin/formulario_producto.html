@@ -111,6 +111,16 @@
                             </button>
                         </div>
                     </form>
+                    {% if form.errors or formset.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <h6 class="fw-bold">Por favor corrige los siguientes errores:</h6>
+                            {{ form.errors }}
+                            {{ formset.non_form_errors }}
+                            {% for recipe_form in formset %}
+                                {{ recipe_form.errors }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -128,55 +138,49 @@
     .remove-row { width: 30px; height: 30px; padding: 0; line-height: 1; }
 </style>
 
+<!-- Agrega esto dentro del bloque de <script> en formulario_producto.html -->
 <script>
-    function setupRemoveButtons() {
-        document.querySelectorAll('.remove-row').forEach(button => {
-            button.onclick = function() {
-                let row = this.closest('.recipe-row');
-                let deleteCheckbox = row.querySelector('input[type="checkbox"][name$="-DELETE"]');
-                if (deleteCheckbox) {
-                    deleteCheckbox.checked = true;
-                    row.style.display = 'none';
-                } else {
-                    row.remove();
-                    updateTotalForms();
-                }
-            };
-        });
+document.addEventListener("DOMContentLoaded", function() {
+    const currencyInputs = document.querySelectorAll('.currency-input');
+
+    function formatNumberCOP(val) {
+        if (!val) return '';
+        // Quita todo lo que no sea dígito
+        let clean = val.toString().replace(/\D/g, '');
+        if (!clean) return '';
+        // Aplica formato de miles con punto (ej: 34900 -> 34.900)
+        return new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(clean);
     }
 
-    function updateTotalForms() {
-        const totalForms = document.querySelector('[id$="-TOTAL_FORMS"]');
-        const rows = document.querySelectorAll('.recipe-row').length;
-        totalForms.value = rows;
-    }
+    // 1. Formatear valores que vengan al cargar
+    currencyInputs.forEach(input => {
+        if (input.value) {
+            input.value = formatNumberCOP(input.value);
+        }
 
-    document.getElementById('add-ingredient').addEventListener('click', function() {
-        const tbody = document.getElementById('recipe-tbody');
-        const totalForms = document.querySelector('[id$="-TOTAL_FORMS"]');
-        let formNum = parseInt(totalForms.value);
-        
-        let rows = tbody.getElementsByClassName('recipe-row');
-        let newRow = rows[0].cloneNode(true);
-        newRow.style.display = ''; 
-        
-        // El prefijo de los formsets suele ser 'recipes_set' según el related_name
-        // o el nombre del modelo. Verifica si en tu consola sale 'recipes-0-' o 'recipes_set-0-'
-        let regex = new RegExp(`-(\\d+)-`, 'g');
-
-        newRow.querySelectorAll('input, select').forEach(input => {
-            input.name = input.name.replace(regex, `-${formNum}-`);
-            input.id = input.id.replace(regex, `-${formNum}-`);
-            if (input.type !== 'hidden' && input.type !== 'checkbox') {
-                input.value = '';
-            }
+        // 2. Formatear mientras el usuario escribe
+        input.addEventListener('input', function(e) {
+            let cursorPosition = this.selectionStart;
+            let originalLen = this.value.length;
+            
+            this.value = formatNumberCOP(this.value);
+            
+            // Mantener posición del cursor
+            let newLen = this.value.length;
+            cursorPosition = cursorPosition + (newLen - originalLen);
+            this.setSelectionRange(cursorPosition, cursorPosition);
         });
-
-        tbody.appendChild(newRow);
-        totalForms.value = formNum + 1;
-        setupRemoveButtons();
     });
 
-    setupRemoveButtons();
+    // 3. Limpiar puntos antes de enviar el formulario POST
+    const form = document.getElementById('product-form');
+    if (form) {
+        form.addEventListener('submit', function() {
+            currencyInputs.forEach(input => {
+                input.value = input.value.replace(/\D/g, ''); // Deja solo los dígitos
+            });
+        });
+    }
+});
 </script>
 {% endblock %}

@@ -43,6 +43,37 @@ class ProductForm(forms.ModelForm):
                 'accept': 'image/*'
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Formatear el valor inicial con separador de miles con puntos al abrir para editar
+        if self.instance and self.instance.pk:
+            if self.instance.sale_price is not None:
+                # 34900 -> "34.900"
+                self.initial['sale_price'] = f"{int(self.instance.sale_price):,}".replace(',', '.')
+            if self.instance.production_cost is not None:
+                self.initial['production_cost'] = f"{int(self.instance.production_cost):,}".replace(',', '.')
+
+    def clean_sale_price(self):
+        val = self.cleaned_data.get('sale_price')
+        if val is None or val == '':
+            return 0
+        # Elimina cualquier caracter no numérico (puntos, signos, comas)
+        val_str = str(val).replace('.', '').replace(',', '').replace('$', '').strip()
+        try:
+            return int(val_str)
+        except ValueError:
+            raise forms.ValidationError("Ingresa un precio de venta válido.")
+
+    def clean_production_cost(self):
+        val = self.cleaned_data.get('production_cost')
+        if val is None or val == '':
+            return 0
+        val_str = str(val).replace('.', '').replace(',', '').replace('$', '').strip()
+        try:
+            return int(val_str)
+        except ValueError:
+            raise forms.ValidationError("Ingresa un costo de producción válido.")
         
 class IngredientForm(forms.ModelForm):
     class Meta:

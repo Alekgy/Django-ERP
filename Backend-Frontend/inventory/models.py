@@ -104,7 +104,7 @@ class Products(models.Model):
     is_active = models.BooleanField(default=True)
     
     # Soporte para ambas columnas de imagen presentes en tu SQL
-    image_path = models.ImageField(upload_to='media-savannah/', null=True, blank=True)
+    image_path = models.ImageField(upload_to='media_erp/', null=True, blank=True)
     image_url = models.TextField(blank=True, null=True) 
     
     # Campos de auditoría agregados
