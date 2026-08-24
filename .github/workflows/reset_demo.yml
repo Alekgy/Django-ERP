@@ -1,14 +1,14 @@
-name: Reset Demo Database
+name: Reset Demo Database Diario
 
 on:
   schedule:
-    # Se ejecuta cada 6 horas (00:00, 06:00, 12:00, 18:00 UTC)
-    - cron: '0 */6 * * *'
-  # Permite disparar el reseteo manualmente desde la pestaña 'Actions' de GitHub
+    # 05:00 UTC = 00:00 (12:00 AM) hora Bogotá (UTC-5)
+    - cron: '0 5 * * *'
+  # Permite probar y disparar el reseteo manualmente en cualquier momento
   workflow_dispatch:
 
 jobs:
-  reset-db:
+  reset-database:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,13 +23,21 @@ jobs:
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r Backend-Frontend/requirements.txt
 
-      - name: Ejecutar reseteo de base de datos
+      - name: Ejecutar reseteo de la Base de Datos
+        working-directory: ./Backend-Frontend
         env:
-          # Inyecta las credenciales de conexión de Supabase / Django
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: 'False'
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
         run: |
           python manage.py reset_demo
