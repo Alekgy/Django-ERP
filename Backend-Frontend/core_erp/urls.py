@@ -7,6 +7,7 @@ from inventory import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('demo-access/', views.demo_login, name='demo_login'),
     path('', views.home_redirect, name='home'),
     path('cambiar-sede/<str:branch_id>/', views.cambiar_sede_sesion, name='cambiar_sede_sesion'),
     

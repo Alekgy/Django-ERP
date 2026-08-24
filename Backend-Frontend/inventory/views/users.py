@@ -5,9 +5,25 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
 from django.db import transaction
+from django.contrib.auth import login
 from inventory.models import UserProfile, Branches
 from inventory.forms import UserCreateForm
 from inventory.decorators import role_required
+
+
+def demo_login(request):
+    """Inicia sesión con un usuario demo sin pedir credenciales."""
+    # Busca el usuario demo o tu usuario de pruebas principal
+    demo_user = User.objects.filter(is_superuser=True).first()  # o: User.objects.filter(username='tu_usuario_demo').first()
+    
+    if demo_user:
+        login(request, demo_user)
+        messages.info(request, "Accediste en Modo Demo.")
+        return redirect('admin_panel')
+    
+    messages.error(request, "No se encontró el usuario demo.")
+    return redirect('login')
+
 
 @login_required
 @role_required('ADMIN_SEDE')
