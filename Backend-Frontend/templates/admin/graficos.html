@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div class="container py-5">
+    <!-- Encabezado con botón de retorno -->
+    <div class="row mb-4 text-center text-md-start align-items-center">
+        <div class="col-md-8">
+            <h1 class="fw-bold"><i class="bi bi-graph-up-arrow text-primary me-2"></i> Reportes y Estadísticas</h1>
+            <p class="text-muted">Análisis visual del rendimiento financiero y operativo del negocio.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <a href="{% url 'admin_panel' %}" class="btn btn-outline-secondary rounded-pill fw-bold">
+                <i class="bi bi-arrow-left me-1"></i> Volver al Panel
+            </a>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN POR PESTAÑAS (TABS DE BOOTSTRAP) -->
+    <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-white rounded-5 shadow-sm mb-4" id="reportesTabs" role="tablist" style="max-width: 800px; margin: 0 auto;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active rounded-5 fw-bold" id="operativo-tab" data-bs-toggle="tab" data-bs-target="#tab-operativo" type="button" role="tab" aria-controls="tab-operativo" aria-selected="true">
+                <i class="bi bi-egg-fried me-2"></i>Operación Diaria
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-5 fw-bold" id="financiero-tab" data-bs-toggle="tab" data-bs-target="#tab-financiero" type="button" role="tab" aria-controls="tab-financiero" aria-selected="false">
+                <i class="bi bi-cash-coin me-2"></i>Finanzas & Sedes
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-5 fw-bold" id="avanzado-tab" data-bs-toggle="tab" data-bs-target="#tab-avanzado" type="button" role="tab" aria-controls="tab-avanzado" aria-selected="false">
+                <i class="bi bi-lightning-charge me-2"></i>Márgenes y Horas Pico
+            </button>
+        </li>
+    </ul>
+
+    <!-- CONTENIDO DE LAS PESTAÑAS -->
+    <div class="tab-content" id="reportesTabsContent">
+        
+        <!-- PESTAÑA 1: OPERACIÓN DIARIA -->
+        <div class="tab-pane fade show active" id="tab-operativo" role="tabpanel" aria-labelledby="operativo-tab">
+            <div class="row">
+                <!-- Gráfica de Cocina -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold text-danger"><i class="bi bi-egg-fried me-2"></i>Ventas Cocina</h5>
+                        <p class="text-muted small">Comportamiento diario de platos y preparaciones de cocina</p>
+                        
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Producto Cocina</label>
+                                <select id="selectorCocina" class="form-select">
+                                    {% if productos %}
+                                        {% for producto in productos %}
+                                            {% if producto.preparation_area == 'COCINA' %}
+                                                <option value="{{ producto.id }}">{{ producto.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <option value="">No hay productos</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Semana</label>
+                                <select id="semanaCocina" class="form-select selector-semana-comun"></select>
+                            </div>
+                        </div>
+                        <div style="position: relative; height: 320px; width: 100%;">
+                            <canvas id="graficaCocina"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfica de Barra -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold text-primary"><i class="bi bi-cup-straw me-2"></i>Ventas Barra</h5>
+                        <p class="text-muted small">Comportamiento diario de cócteles, licores y refrescos</p>
+                        
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Producto Barra</label>
+                                <select id="selectorBarra" class="form-select">
+                                    {% if productos %}
+                                        {% for producto in productos %}
+                                            {% if producto.preparation_area == 'BAR' %}
+                                                <option value="{{ producto.id }}">{{ producto.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <option value="">No hay productos</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Semana</label>
+                                <select id="semanaBarra" class="form-select selector-semana-comun"></select>
+                            </div>
+                        </div>
+                        <div style="position: relative; height: 320px; width: 100%;">
+                            <canvas id="graficaBarra"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: RENDIMIENTO FINANCIERO -->
+        <div class="tab-pane fade" id="tab-financiero" role="tabpanel" aria-labelledby="financiero-tab">
+            <div class="row mb-4">
+                <div class="col-12 mb-3">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center text-md-start">
+                                <h6 class="fw-bold mb-0 text-muted"><i class="bi bi-funnel me-2"></i>Filtrar Métricas Generales (Donas)</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="tipoFiltroDona" class="form-select">
+                                    <option value="todos">Mostrar Todo el Histórico</option>
+                                    <option value="semana">Filtrar por Semana</option>
+                                    <option value="trimestre">Filtrar por Trimestre (Q)</option>
+                                    <option value="semestre">Filtrar por Semestre</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="valorFiltroDona" class="form-select" disabled>
+                                    <option value="">-- Selecciona un rango --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dona Métodos de Pago -->
+                <div class="col-md-6 mb-4">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold text-success"><i class="bi bi-credit-card me-2"></i>Métodos de Pago</h5>
+                        <p class="text-muted small">Distribución de ingresos según la forma de pago utilizada</p>
+                        <div style="position: relative; height: 280px; width: 100%;">
+                            <canvas id="graficaMetodosPago"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dona Sedes -->
+                <div class="col-md-6 mb-4">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold text-info"><i class="bi bi-shop me-2"></i>Ventas por Sede</h5>
+                        <p class="text-muted small">Comparativa de facturación entre tus diferentes puntos de venta</p>
+                        <div style="position: relative; height: 280px; width: 100%;">
+                            <canvas id="graficaSedes"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Histórico Lineal abajo en la misma sección financiera -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold"><i class="bi bi-cash-stack me-2"></i>Histórico de Ventas Semanales</h5>
+                        <p class="text-muted small">Evolución global de los ingresos en los últimos 3 meses</p>
+                        <div style="position: relative; height: 350px; width: 100%;">
+                            <canvas id="graficaLinealHistorico"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 3: NUEVOS ANÁLISIS DE MÁRGENES Y HORAS PICO -->
+        <div class="tab-pane fade" id="tab-avanzado" role="tabpanel" aria-labelledby="avanzado-tab">
+            <div class="row">
+                <!-- Gráfica de Margen de Ganancias -->
+                <div class="col-lg-7 mb-4">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold text-dark"><i class="bi bi-graph-up me-2"></i>Margen de Ganancia por Producto</h5>
+                        <p class="text-muted small">Comparativa entre el precio de venta y costo de producción teórico (Top 10)</p>
+                        <div style="position: relative; height: 350px; width: 100%;">
+                            <canvas id="graficaMargenGanancia"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfica de Horas Pico (Heatmap de Ventas por Hora) -->
+                <div class="col-lg-5 mb-4">
+                    <div class="card p-3 shadow-sm border-0" style="border-radius: 20px;">
+                        <h5 class="card-title fw-bold text-warning"><i class="bi bi-clock-history me-2"></i>Horas Pico de Demanda</h5>
+                        <p class="text-muted small">Concentración de pedidos según el bloque horario del día</p>
+                        <div style="position: relative; height: 350px; width: 100%;">
+                            <canvas id="graficaHorasPico"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% load static %}
+<script type="module" src="{% static 'JS/reportes/dashboard.js' %}"></script>
+{% endblock %}

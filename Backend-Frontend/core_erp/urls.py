@@ -7,6 +7,7 @@ from inventory import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('demo-access/', views.demo_login, name='demo_login'),
     path('', views.home_redirect, name='home'),
     path('cambiar-sede/<str:branch_id>/', views.cambiar_sede_sesion, name='cambiar_sede_sesion'),
     
@@ -17,7 +18,11 @@ urlpatterns = [
     
     # Dashboard de Barra
     path('barra/', views.bartender_dashboard, name='bartender_dashboard'),
-    path('barra/completar/<uuid:sale_id>/', views.completar_pedido, name='completar_pedido'),
+    path('barra/completar/<uuid:sale_id>/', views.completar_pedido, name='completar_pedido_barra'),
+    
+    # Dashboard de Cocina
+    path('cocina/', views.kitchen_dashboard, name='kitchen_dashboard'),
+    path('cocina/completar/<uuid:sale_id>/', views.completar_pedido, name='completar_pedido_cocina'),
     
     # Inventario
     path('inventario/ingreso/', views.gestion_inventario, name='gestion_inventario'),
@@ -48,6 +53,15 @@ urlpatterns = [
     # Transformaciones
     path('transformaciones/nueva/', views.nueva_transformacion, name='nueva_transformacion'),
     path('transformaciones/historial/', views.historial_transformaciones, name='historial_transformaciones'),
+    
+    # Graficos
+    path('admin-panel/reportes/', views.reportes_panel, name='reportes'),
+    path('api/ventas-producto-semana/', views.api_ventas_producto_semana, name='api_ventas_producto_semana'),
+    path('api/ventas-historico-semanal/', views.api_ventas_historico_semanal, name='api_ventas_historico_semanal'),
+    path('api/ventas-metodos-pago/', views.api_ventas_metodos_pago, name='api_ventas_metodos_pago'),
+    path('api/ventas-por-sede/', views.api_ventas_por_sede, name='api_ventas_por_sede'),
+    path('api/margen-ganancia-productos/', views.api_margen_ganancia_productos, name='api_margen_ganancia_productos'),
+    path('api/horas-pico-ventas/', views.api_horas_pico_ventas, name='api_horas_pico_ventas'),
     
     # Módulo de Caja
     path('caja/', views.modulo_caja, name='modulo_caja'),

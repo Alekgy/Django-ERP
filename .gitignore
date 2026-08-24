@@ -2,6 +2,7 @@
 savannah/
 venv/
 env/
+media/
 
 # Variables de entorno
 .env
@@ -15,3 +16,6 @@ env/
 
 # Sistema
 .DS_Store
+
+# Scripts de carga
+cargar_pruebas.py

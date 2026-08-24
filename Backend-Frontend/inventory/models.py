@@ -12,11 +12,23 @@ class UnitMeasures(models.Model):
     abbreviation = models.TextField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'unit_measures'
 
     def __str__(self):
         return f"{self.name} ({self.abbreviation})"
+    
+class PaymentMethods(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.TextField() # Ej: "Efectivo", "Tarjeta Débito/Crédito"
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        managed = True
+        db_table = 'payment_methods'
+
+    def __str__(self):
+        return self.name
 
 
 class Branches(models.Model):
@@ -27,7 +39,7 @@ class Branches(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'branches'
 
     def __str__(self):
@@ -56,7 +68,7 @@ class Ingredients(models.Model):
     deleted_at = models.DateTimeField(blank=True, null=True)  # Para soft-deletes si los usas en la DB
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ingredients'
 
     def __str__(self):
@@ -74,7 +86,7 @@ class Inventories(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'inventories'
         unique_together = (('branch', 'ingredient'),)
 
@@ -92,7 +104,7 @@ class Products(models.Model):
     is_active = models.BooleanField(default=True)
     
     # Soporte para ambas columnas de imagen presentes en tu SQL
-    image_path = models.ImageField(upload_to='media-savannah/', null=True, blank=True)
+    image_path = models.ImageField(upload_to='media_erp/', null=True, blank=True)
     image_url = models.TextField(blank=True, null=True) 
     
     # Campos de auditoría agregados
@@ -100,8 +112,17 @@ class Products(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
+    AREA_CHOICES = [
+        ('BAR', 'Barra de Cócteles'),
+        ('COCINA', 'Cocina / Alimentos'),
+    ]
+    preparation_area = models.CharField(
+        max_length=15, 
+        choices=AREA_CHOICES, 
+        default='BAR'
+    )
     class Meta:
-        managed = False
+        managed = True
         db_table = 'products'
 
     def __str__(self):
@@ -134,9 +155,8 @@ class Recipes(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'recipes'
-
 
 class Sales(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -149,18 +169,22 @@ class Sales(models.Model):
     is_prepared = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     total_cost_at_sale = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    payment_method = models.ForeignKey(
+        PaymentMethods, 
+        on_delete=models.PROTECT, 
+        db_column='payment_method_id', 
+        null=False 
+    )
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'sales'
 
     def save(self, *args, **kwargs):
-        # El modelo ahora solo calcula el costo teórico de la venta
         if not self.total_cost_at_sale:
             costo_teorico = self.product.calculate_theoretical_cost(branch_id=self.branch_id)
             self.total_cost_at_sale = costo_teorico * self.quantity
         super().save(*args, **kwargs)
-
 
 # ==========================================
 # 4. Transformaciones y Movimientos
@@ -179,7 +203,7 @@ class Transformations(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'transformations'
         verbose_name = 'Transformación'
 
@@ -200,7 +224,7 @@ class TransformationItems(models.Model):
     quantity_used = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'transformation_items'
         verbose_name = 'Ítem de Transformación'
 
@@ -223,7 +247,7 @@ class InventoryMovements(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'inventory_movements'
         verbose_name = 'Movimiento de Inventario'
 
@@ -249,8 +273,9 @@ class UserProfile(models.Model):
     branch = models.ForeignKey(Branches, on_delete=models.SET_NULL, null=True, blank=True, db_column='branch_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'user_profiles'
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
+    

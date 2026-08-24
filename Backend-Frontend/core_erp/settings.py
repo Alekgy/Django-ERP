@@ -92,6 +92,14 @@ DATABASES = {
     }
 }
 
+# Database fija en SQLite para desarrollo local sin dependencias externas
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -109,7 +117,7 @@ USE_I18N = True
 USE_TZ = True
 
 USE_L10N = True 
-USE_THOUSAND_SEPARATOR = True 
+USE_THOUSAND_SEPARATOR = False 
 THOUSAND_SEPARATOR = '.' 
 DECIMAL_SEPARATOR = ','  
 NUMBER_GROUPING = 3
@@ -123,11 +131,35 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # --- CONFIGURACIÓN DE STORAGE (SUPABASE VIA S3) ---
 
+# --- CONFIGURACIÓN DE STORAGE (SUPABASE VIA S3 / LOCAL EN DESARROLLO) ---
+
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
+SUPABASE_PROJECT_ID = os.getenv('SUPABASE_PROJECT_ID')
+
+# # Si están configuradas las credenciales de AWS, usa el Storage en la nube
+# if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    
+#     AWS_S3_OBJECT_PARAMETERS = {
+#         'CacheControl': 'max-age=86400',
+#     }
+#     AWS_QUERYSTRING_AUTH = False
+#     AWS_S3_FILE_OVERWRITE = False
+
+#     if SUPABASE_PROJECT_ID:
+#         AWS_S3_CUSTOM_DOMAIN = f"{SUPABASE_PROJECT_ID}.supabase.co/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}"
+#         MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+#     else:
+#         MEDIA_URL = '/media/'
+# else:
+#     # SI NO HAY CREDENCIALES: Usa el almacenamiento local de tu PC para pruebas rápidas
+#     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+#     MEDIA_URL = '/media/'
+#     MEDIA_ROOT = BASE_DIR / 'media'
 
 # Configuración para que Django use S3 como almacenamiento por defecto
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

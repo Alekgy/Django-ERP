@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Cargamos los iconos de Bootstrap por si no están en el base.html -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <div class="container py-5">
     <div class="row mb-4 text-center text-md-start">
         <div class="col">
-            <h1 class="fw-bold">Configuración Maestro <span class="text-muted fs-4">| Savannah</span></h1>
+            <h1 class="fw-bold">Configuración Maestro <span class="text-muted fs-4">| ERP</span></h1>
             <p class="text-muted">Gestión centralizada de los pilares del negocio en Supabase.</p>
         </div>
     </div>
@@ -19,7 +18,7 @@
                 <div class="card-body text-center p-4">
                     <i class="bi bi-box-seam display-4 text-primary"></i>
                     <h5 class="card-title fw-bold mt-3">Productos</h5>
-                    <p class="card-text text-muted small">Crea nuevos items, precios y recetas conectadas al Storage.</p>
+                    <p class="card-text text-muted small">Crea nuevos items, precios and recetas conectadas al Storage.</p>
                     <a href="{% url 'lista_productos' %}" class="btn btn-primary rounded-pill w-100 fw-bold">Gestionar</a>
                 </div>
             </div>
@@ -41,6 +40,7 @@
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
                 <div class="card-body text-center p-4">
+                    <!-- Icono Rojo de Ubicación -->
                     <i class="bi bi-geo-alt display-4 text-danger"></i>
                     <h5 class="card-title fw-bold mt-3">Sedes</h5>
                     <p class="card-text text-muted small">Administra direcciones y puntos de venta activos.</p>
@@ -49,13 +49,28 @@
             </div>
         </div>
 
+        <!-- Tarjeta Empleados -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
                 <div class="card-body text-center p-4">
-                    <i class="bi bi-geo-alt display-4 text-danger"></i>
+                    <!-- NUEVO ICONO: Grupo de personas en color gris oscuro -->
+                    <i class="bi bi-people-fill display-4 text-dark"></i>
                     <h5 class="card-title fw-bold mt-3">Empleados</h5>
-                    <p class="card-text text-muted small">Administra los empleados de la empresa.</p>
-                    <a href="{% url 'lista_usuarios' %}" class="btn btn-secondary">Gestionar Empleados</a>
+                    <p class="card-text text-muted small">Administra los empleados de la empresa y sus permisos.</p>
+                    <a href="{% url 'lista_usuarios' %}" class="btn btn-secondary rounded-pill w-100 fw-bold">Gestionar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Reportes -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+                <div class="card-body text-center p-4">
+                    <!-- NUEVO ICONO: Gráfica de tendencia en color naranja Savannah -->
+                    <i class="bi bi-graph-up-arrow display-4 text-warning"></i>
+                    <h5 class="card-title fw-bold mt-3">Reportes</h5>
+                    <p class="card-text text-muted small">Visualiza el rendimiento financiero y el flujo de comandas de tu restaurante en tiempo real.</p>
+                    <a href="{% url 'reportes' %}" class="btn btn-warning rounded-pill w-100 fw-bold">Ver Reportes</a>
                 </div>
             </div>
         </div>

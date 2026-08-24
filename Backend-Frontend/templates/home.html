@@ -3,12 +3,12 @@
 {% block content %}
 <div class="row mb-4">
     <div class="col text-center text-md-start">
-        <h1 class="display-5 fw-bold">Savannah <span class="text-muted fs-4">| Panel de Control</span></h1>
+        <h1 class="display-5 fw-bold">ERP <span class="text-muted fs-4">| Panel de Control</span></h1>
         <p class="text-muted">
             {% if user.is_authenticated %}
                 Bienvenido de nuevo, <strong>{{ user.username }}</strong>.
             {% else %}
-                Bienvenido a <strong>Savannah</strong>. Elige una opción para continuar.
+                Bienvenido a <strong>ERP</strong>. Elige una opción para continuar.
             {% endif %}
         </p>
     </div>
@@ -17,7 +17,7 @@
 <div class="row text-center justify-content-center">
 
     <!-- Opción pública: Menú Digital -->
-    {% comment %} <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
             <div class="card-body p-4">
                 <div class="display-4 mb-3">🍸</div>
@@ -26,7 +26,7 @@
                 <a href="{% url 'menu_digital_local' 1 %}" class="btn btn-dark rounded-pill px-5 py-2 fw-bold shadow-sm">ABRIR CARTA</a>
             </div>
         </div>
-    </div> {% endcomment %}
+    </div>
 
 
         <div class="col-md-4 mb-4">
@@ -44,9 +44,20 @@
             <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
                 <div class="card-body p-4">
                     <div class="display-4 mb-3">🍹</div>
-                    <h5 class="card-title fw-bold">Elaboración</h5>
+                    <h5 class="card-title fw-bold">Barra</h5>
                     <p class="card-text text-muted">Gestión de órdenes en tiempo real.</p>
                     <a href="{% url 'bartender_dashboard' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">VER ELABORACIÓN</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="background-color: #eeeeee; border-radius: 25px;">
+                <div class="card-body p-4">
+                    <div class="display-4 mb-3">🍳</div>
+                    <h5 class="card-title fw-bold">Cocina</h5>
+                    <p class="card-text text-muted">Gestión de órdenes en tiempo real.</p>
+                    <a href="{% url 'kitchen_dashboard' %}" class="btn btn-outline-dark rounded-pill px-4 fw-bold">VER COCINA</a>
                 </div>
             </div>
         </div>
@@ -103,13 +114,6 @@
 
 
     {% endif %}
-
-    {% comment %} {% if not user.is_authenticated %}
-        <div class="col-12 mt-5">
-            <hr class="w-25 mx-auto">
-            <a href="{% url 'login' %}" class="text-muted small text-decoration-none">Acceso Administrativo</a>
-        </div>
-    {% endif %} {% endcomment %}
 
 {% endif %}</div>
 {% endblock %}

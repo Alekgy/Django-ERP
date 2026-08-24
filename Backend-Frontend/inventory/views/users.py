@@ -5,29 +5,43 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
 from django.db import transaction
-
-# Importaciones absolutas
+from django.contrib.auth import login
 from inventory.models import UserProfile, Branches
 from inventory.forms import UserCreateForm
 from inventory.decorators import role_required
 
+
+def demo_login(request):
+    """Inicia sesión con un usuario demo sin pedir credenciales."""
+    # Busca el usuario demo o tu usuario de pruebas principal
+    demo_user = User.objects.filter(is_superuser=True).first()  # o: User.objects.filter(username='tu_usuario_demo').first()
+    
+    if demo_user:
+        login(request, demo_user)
+        messages.info(request, "Accediste en Modo Demo.")
+        return redirect('admin_panel')
+    
+    messages.error(request, "No se encontró el usuario demo.")
+    return redirect('login')
+
+
 @login_required
-@role_required('ADMIN_SEDE') # OWNER y Superuser entran automáticamente
+@role_required('ADMIN_SEDE')
 def lista_usuarios(request):
     """Muestra los usuarios del sistema. El Owner ve a todos; el Administrador local solo a su sede."""
     user_profile = request.user.profile
 
-    # CORTOCIRCUITO: El Owner y el Superuser ven la nómina completa del ERP
+    queryset_base = User.objects.exclude(is_superuser=True).select_related('profile', 'profile__branch')
+
     if request.user.is_superuser or user_profile.role.upper() == 'OWNER':
-        usuarios = User.objects.all().select_related('profile__branch').order_by('username')
+        usuarios = queryset_base.order_by('username')
         sedes = Branches.objects.all()
     else:
-        # El Administrador de Sede solo ve los usuarios asignados a su sucursal
         if not user_profile.branch:
             messages.error(request, "No tienes una sede asignada para administrar usuarios.")
             return redirect('home')
             
-        usuarios = User.objects.filter(profile__branch=user_profile.branch).select_related('profile__branch').order_by('username')
+        usuarios = queryset_base.filter(profile__branch=user_profile.branch).order_by('username')
         sedes = Branches.objects.filter(id=user_profile.branch.id)
 
     return render(request, 'admin/lista_usuarios.html', {
@@ -46,15 +60,16 @@ def crear_usuario_staff(request):
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            
             role = form.cleaned_data.get('role')
             branch = form.cleaned_data.get('branch')
 
-            # Seguridad: Si el que crea es un Administrador de Sede, forzamos que el nuevo empleado sea de su misma sede
             if not request.user.is_superuser and user_profile.role.upper() != 'OWNER':
                 branch = user_profile.branch
 
-            # Creamos o actualizamos el perfil de usuario asociado
             UserProfile.objects.update_or_create(
                 user=user,
                 defaults={'role': role, 'branch': branch}
@@ -65,52 +80,68 @@ def crear_usuario_staff(request):
     else:
         form = UserCreateForm()
 
-    return render(request, 'admin/crear_usuario.html', {'form': form})
+    return render(request, 'admin/formulario_usuario.html', {'form': form})
 
 
 @login_required
 @role_required('ADMIN_SEDE')
 @transaction.atomic
 def editar_usuario(request, user_id):
-    """Edición de roles y sedes de los usuarios."""
+    """Edición de roles y sedes de los usuarios usando el mismo formulario."""
     user_profile = request.user.profile
-    usuario_a_editar = get_object_or_404(User, id=user_id)
-    perfil_a_editar, created = UserProfile.objects.get_or_create(user=usuario_a_editar)
+    usuario = get_object_or_404(User, id=user_id)
+    
+    es_admin_superior = request.user.is_superuser or user_profile.role.upper() == 'OWNER'
+    es_mismo_usuario = request.user.id == usuario.id
 
-    # Seguridad: Un administrador de sede no puede editar a un usuario de otra sede
-    if not (request.user.is_superuser or user_profile.role.upper() == 'OWNER'):
-        if perfil_a_editar.branch != user_profile.branch:
-            messages.error(request, "No tienes permisos para editar usuarios de otras sedes.")
-            return redirect('lista_usuarios')
+    if not (es_admin_superior or es_mismo_usuario):
+        messages.error(request, "No tienes permiso para acceder a este perfil.")
+        return redirect('home')
 
-    if request.method == 'POST':
-        nuevo_rol = request.POST.get('role')
-        nueva_sede_id = request.POST.get('branch')
-
-        # Si no es Owner/Superuser, no puede cambiar la sede a otra que no sea la suya
-        if not request.user.is_superuser and user_profile.role.upper() != 'OWNER':
-            nueva_sede = user_profile.branch
-        else:
-            nueva_sede = Branches.objects.filter(id=nueva_sede_id).first() if nueva_sede_id else None
-
-        perfil_a_editar.role = nuevo_rol
-        perfil_a_editar.branch = nueva_sede
-        perfil_a_editar.save()
-
-        messages.success(request, f"Perfil de '{usuario_a_editar.username}' actualizado correctamente.")
+    if usuario.is_superuser and not request.user.is_superuser:
+        messages.error(request, "No tienes permiso para editar al usuario Master.")
         return redirect('lista_usuarios')
 
-    sedes_disponibles = Branches.objects.all() if (request.user.is_superuser or user_profile.role.upper() == 'OWNER') else Branches.objects.filter(id=user_profile.branch.id)
+    perfil, created = UserProfile.objects.get_or_create(user=usuario)
+    
+    if request.method == 'POST':
+        form = UserCreateForm(request.POST, instance=usuario)
+        
+        if 'password' in form.fields: 
+            del form.fields['password']
 
-    return render(request, 'admin/editar_usuario.html', {
-        'usuario_a_editar': usuario_a_editar,
-        'perfil_a_editar': perfil_a_editar,
-        'sedes': sedes_disponibles
-    })
+        if not es_admin_superior:
+            if 'role' in form.fields: del form.fields['role']
+            if 'branch' in form.fields: del form.fields['branch']
+
+        if form.is_valid():
+            user_saved = form.save() 
+            
+            if es_admin_superior:
+                perfil.role = form.cleaned_data.get('role', perfil.role)
+                perfil.branch = form.cleaned_data.get('branch', perfil.branch) if perfil.role != 'OWNER' else None
+                perfil.save()
+            
+            messages.success(request, f"Datos de {user_saved.username} actualizados correctamente.")
+            return redirect('lista_usuarios') if es_admin_superior else redirect('home')
+    else:
+        form = UserCreateForm(instance=usuario, initial={
+            'role': perfil.role,
+            'branch': perfil.branch
+        })
+        
+        if 'password' in form.fields: 
+            del form.fields['password']
+            
+        if not es_admin_superior:
+            if 'role' in form.fields: form.fields['role'].widget = forms.HiddenInput()
+            if 'branch' in form.fields: form.fields['branch'].widget = forms.HiddenInput()
+
+    return render(request, 'admin/formulario_usuario.html', {'form': form, 'editando': True})
 
 
 @login_required
-@role_required('OWNER') # Candado estricto: Solo el dueño o superuser resetea claves ajenas
+@role_required('OWNER') 
 def cambiar_password_admin(request, user_id):
     """Permite al Owner forzar el cambio de contraseña de un empleado."""
     usuario = get_object_or_404(User, id=user_id)
@@ -132,7 +163,7 @@ def cambiar_password_admin(request, user_id):
         messages.success(request, f"Contraseña de '{usuario.username}' actualizada con éxito.")
         return redirect('lista_usuarios')
 
-    return render(request, 'admin/cambiar_password_admin.html', {'usuario': usuario})
+    return render(request, 'admin/cambiar_password_solo.html', {'usuario': usuario})
 
 
 @login_required
@@ -158,7 +189,7 @@ def cambiar_mi_password(request):
 
         user.set_password(new_p)
         user.save()
-        update_session_auth_hash(request, user) # Evita que se cierre la sesión actual
+        update_session_auth_hash(request, user)
         
         messages.success(request, "Tu contraseña ha sido actualizada con éxito.")
         return redirect('home')
@@ -167,7 +198,7 @@ def cambiar_mi_password(request):
 
 
 @login_required
-@role_required('OWNER') # Candado estricto: Un administrador local no puede borrar cuentas
+@role_required('OWNER') 
 def eliminar_usuario(request, user_id):
     """Eliminación definitiva de un usuario."""
     if request.method == 'POST':
