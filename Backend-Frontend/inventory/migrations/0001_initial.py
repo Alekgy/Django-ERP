@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('sale_price', models.DecimalField(decimal_places=2, max_digits=12)),
                 ('production_cost', models.DecimalField(decimal_places=2, default=0, max_digits=12)),
                 ('is_active', models.BooleanField(default=True)),
-                ('image_path', models.ImageField(blank=True, null=True, upload_to='media-savannah/')),
+                ('image_path', models.ImageField(blank=True, null=True, upload_to='media_erp/')),
                 ('image_url', models.TextField(blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
