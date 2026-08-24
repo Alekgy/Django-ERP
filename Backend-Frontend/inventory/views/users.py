@@ -19,7 +19,7 @@ def demo_login(request):
     if demo_user:
         login(request, demo_user)
         messages.info(request, "Accediste en Modo Demo.")
-        return redirect('admin_panel')
+        return redirect('home')
     
     messages.error(request, "No se encontró el usuario demo.")
     return redirect('login')
