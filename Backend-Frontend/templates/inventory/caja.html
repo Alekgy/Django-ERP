@@ -83,6 +83,16 @@
                                 <input type="hidden" name="table_name" value="{{ mesa }}">
                                 <input type="hidden" name="branch_id" value="{{ datos.branch_id }}">
                                 
+                                <!-- Selector de Método de Pago -->
+                                <div class="mb-2">
+                                    <select name="payment_method_id" class="form-select form-select-sm rounded-pill text-center fw-semibold border-0 shadow-sm" required>
+                                        <option value="" disabled selected>-- Método de Pago --</option>
+                                        {% for metodo in metodos_pago %}
+                                            <option value="{{ metodo.id }}">{{ metodo.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            
                                 <button type="submit" class="btn btn-dark w-100 rounded-pill fw-bold py-2">
                                     CERRAR Y COBRAR
                                 </button>
