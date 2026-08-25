@@ -77,6 +77,7 @@ def crear_producto(request):
                 producto.branch = user_profile.branch
                 
             producto.save()
+            form.save_m2m()
             
             formset = RecipeFormSet(request.POST, instance=producto)
             if formset.is_valid():
