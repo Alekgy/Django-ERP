@@ -92,7 +92,7 @@
     "model": "inventory.branches",
     "pk": "317a16e4-343a-4822-bbef-751e82e43eb7",
     "fields": {
-        "name": "La Xarcuteria - Zona G",
+        "name": "Sede Zona G",
         "address": "Calle 69a # 4-05, Zona G",
         "phone": "(601) 312-4567",
         "created_at": "2026-07-15T18:27:51.277Z"
@@ -102,7 +102,7 @@
     "model": "inventory.branches",
     "pk": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
     "fields": {
-        "name": "La Xarcuteria - Parque 93",
+        "name": "Sede Parque 93",
         "address": "Carrera 13 # 93a-45, Chicó",
         "phone": "(601) 485-9988",
         "created_at": "2026-07-15T18:27:51.294Z"
@@ -112,7 +112,7 @@
     "model": "inventory.branches",
     "pk": "64bb2333-7e0f-4833-b2f7-65048d475f60",
     "fields": {
-        "name": "La Xarcuteria - Usaquén",
+        "name": "Sede Usaquén",
         "address": "Calle 119 # 6-18, Usaquén",
         "phone": "(601) 620-1122",
         "created_at": "2026-07-15T18:27:51.288Z"
