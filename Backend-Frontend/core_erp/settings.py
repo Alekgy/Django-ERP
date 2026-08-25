@@ -24,9 +24,9 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-cambiame')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1'] # Cambia esto en producción
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -68,7 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'inventory.views.sedes_context_processor',
-                'django.template.context_processors.media', 
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -77,28 +77,36 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core_erp.wsgi.application'
 
 
-# Database - Conexión a Supabase (PostgreSQL)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
-    }
-}
+# ==========================================
+# 1. DATABASE CONFIGURATION (Supabase / SQLite)
+# ==========================================
 
-# Database fija en SQLite para desarrollo local sin dependencias externas
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DB_HOST = os.getenv('DB_HOST')
+DB_NAME = os.getenv('DB_NAME')
+
+if DB_HOST and DB_NAME:
+    # Conexión a Supabase (PostgreSQL)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DB_NAME,
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': DB_HOST,
+            'PORT': os.getenv('DB_PORT', '5432'),
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
+        }
+    }
+else:
+    # Base de datos local SQLite para desarrollo sin variables de entorno
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -122,66 +130,56 @@ THOUSAND_SEPARATOR = '.'
 DECIMAL_SEPARATOR = ','  
 NUMBER_GROUPING = 3
 
+
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-# --- CONFIGURACIÓN DE STORAGE (SUPABASE VIA S3) ---
 
-# --- CONFIGURACIÓN DE STORAGE (SUPABASE VIA S3 / LOCAL EN DESARROLLO) ---
+# ==========================================
+# 2. MEDIA & STORAGE (Supabase S3 / Local)
+# ==========================================
 
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
-SUPABASE_PROJECT_ID = os.getenv('SUPABASE_PROJECT_ID')
 
-# # Si están configuradas las credenciales de AWS, usa el Storage en la nube
-# if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
-#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    
-#     AWS_S3_OBJECT_PARAMETERS = {
-#         'CacheControl': 'max-age=86400',
-#     }
-#     AWS_QUERYSTRING_AUTH = False
-#     AWS_S3_FILE_OVERWRITE = False
-
-#     if SUPABASE_PROJECT_ID:
-#         AWS_S3_CUSTOM_DOMAIN = f"{SUPABASE_PROJECT_ID}.supabase.co/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}"
-#         MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-#     else:
-#         MEDIA_URL = '/media/'
-# else:
-#     # SI NO HAY CREDENCIALES: Usa el almacenamiento local de tu PC para pruebas rápidas
-#     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-#     MEDIA_URL = '/media/'
-#     MEDIA_ROOT = BASE_DIR / 'media'
-
-# Configuración para que Django use S3 como almacenamiento por defecto
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# Parámetros adicionales para optimizar la carga
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-
-# IMPORTANTE: Supabase no acepta firmas en URLs públicas de Storage
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-
-# Construimos la URL usando el Project ID directo desde el .env
-# Esto evita errores con los hosts de conexión tipo 'pooler'
-SUPABASE_PROJECT_ID = os.getenv('SUPABASE_PROJECT_ID')
-
-if SUPABASE_PROJECT_ID:
-    # Formato: https://abcxyz.supabase.co/storage/v1/object/public/media/
-    AWS_S3_CUSTOM_DOMAIN = f"{SUPABASE_PROJECT_ID}.supabase.co/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {
+                "access_key": AWS_ACCESS_KEY_ID,
+                "secret_key": AWS_SECRET_ACCESS_KEY,
+                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+                "endpoint_url": AWS_S3_ENDPOINT_URL,
+                "region_name": AWS_S3_REGION_NAME,
+                "querystring_auth": True,
+                "querystring_expire": 3600,
+                "file_overwrite": False,
+                "default_acl": None,
+                "signature_version": "s3v4",
+                "addressing_style": "path",
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        },
+    }
 else:
     MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        },
+    }
 
 
 # --- CONFIGURACIÓN DE LOGIN ---
