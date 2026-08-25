@@ -169,22 +169,19 @@ class Sales(models.Model):
     is_prepared = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     total_cost_at_sale = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    
+    # Permitir nulo mientras la venta esté abierta
     payment_method = models.ForeignKey(
         PaymentMethods, 
         on_delete=models.PROTECT, 
         db_column='payment_method_id', 
-        null=False 
+        null=True, 
+        blank=True
     )
 
     class Meta:
         managed = True
         db_table = 'sales'
-
-    def save(self, *args, **kwargs):
-        if not self.total_cost_at_sale:
-            costo_teorico = self.product.calculate_theoretical_cost(branch_id=self.branch_id)
-            self.total_cost_at_sale = costo_teorico * self.quantity
-        super().save(*args, **kwargs)
 
 # ==========================================
 # 4. Transformaciones y Movimientos

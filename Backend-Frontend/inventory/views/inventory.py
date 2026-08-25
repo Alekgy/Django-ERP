@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.db import transaction
 from django.db.models import Sum
 from django.db.models.functions import TruncMinute
-from inventory.models import Branches, Ingredients, Inventories, Transformations, TransformationItems, Sales, InventoryMovements
+from inventory.models import Branches, Ingredients, Inventories, Transformations, TransformationItems, Sales, InventoryMovements, PaymentMethods
 from inventory.decorators import role_required
 
 @login_required
@@ -154,7 +154,7 @@ def historial_transformaciones(request):
 
 
 @login_required
-@role_required('STAFF','CAJERO', 'ADMIN_SEDE')
+@role_required('STAFF', 'CAJERO', 'ADMIN_SEDE')
 @transaction.atomic
 def modulo_caja(request):
     """Módulo de Facturación. El Owner ve los cierres de todas las mesas/sedes."""
@@ -164,13 +164,22 @@ def modulo_caja(request):
     if request.method == 'POST':
         nombre_mesa = request.POST.get('table_name')
         sede_id = request.POST.get('branch_id')
+        payment_method_id = request.POST.get('payment_method_id')
         
+        if not payment_method_id:
+            messages.error(request, "Debes seleccionar un método de pago.")
+            return redirect('modulo_caja')
+
         if nombre_mesa:
             query_ventas = Sales.objects.filter(table_name=nombre_mesa, is_paid=False)
             if sede_id:
                 query_ventas = query_ventas.filter(branch_id=sede_id)
                 
-            query_ventas.update(is_paid=True)
+            # Actualiza tanto el estado pagado como el método de pago elegido
+            query_ventas.update(
+                is_paid=True,
+                payment_method_id=payment_method_id
+            )
             messages.success(request, f"¡{nombre_mesa} cerrada con éxito!")
             return redirect('modulo_caja')
 
@@ -216,9 +225,13 @@ def modulo_caja(request):
         .annotate(total_cuenta=Sum('total_sale_price'))\
         .order_by('-fecha_minuto')[:10]
 
+    # Obtenemos los métodos de pago habilitados
+    metodos_pago = PaymentMethods.objects.filter(is_active=True)
+
     return render(request, 'inventory/caja.html', {
         'mesas_abiertas': mesas_dict,
         'mesas_cerradas': ventas_cerradas_agrupadas,
+        'metodos_pago': metodos_pago,
         'umbral': umbral
     })
 
