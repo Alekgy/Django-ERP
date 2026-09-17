@@ -42,7 +42,7 @@
                                 </span>
                             </td>
                             <!-- Cambio de nombre de columna: last_purchase_cost -> current_unit_cost -->
-                            <td>$ {{ i.current_unit_cost|intcomma }}</td>
+                            <td>$ {{ i.current_unit_cost|floatformat:0|intcomma }}</td>
                             
                             <td class="text-end px-4">
                                 <!-- El ID del modal también soporta el UUID -->

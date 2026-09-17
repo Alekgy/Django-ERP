@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Products, Ingredients, Branches, UnitMeasures, UserProfile    
+from .models import Products, Ingredients, Branches, UnitMeasures, UserProfile, Recipes
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -87,13 +87,20 @@ class IngredientForm(forms.ModelForm):
             'unit_measure': forms.Select(attrs={'class': 'form-control'}),
             'min_stock_threshold': forms.NumberInput(attrs={
                 'class': 'form-control', 
-                'step': '0.01'
+                'step': 'any',
+                'placeholder': '0'
             }),
             'category': forms.Select(attrs={
                 'class': 'form-control',
             }),
         }
-        
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Limpia los ceros decimales al abrir para editar
+        if self.instance and self.instance.pk and self.instance.min_stock_threshold is not None:
+            val = self.instance.min_stock_threshold
+            self.initial['min_stock_threshold'] = int(val) if val % 1 == 0 else float(val)
 class BranchForm(forms.ModelForm):
     class Meta:
         model = Branches
@@ -140,3 +147,24 @@ class UserCreateForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
         
+
+
+class RecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipes
+        fields = ['ingredient', 'quantity_required']
+        widgets = {
+            'ingredient': forms.Select(attrs={'class': 'form-control'}),
+            'quantity_required': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'step': 'any',
+                'placeholder': '0'
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk and self.instance.quantity_required is not None:
+            val = self.instance.quantity_required
+            # Si termina en .0000 lo muestra como entero (ej: 150), sino deja solo los decimales reales
+            self.initial['quantity_required'] = int(val) if val % 1 == 0 else float(val)

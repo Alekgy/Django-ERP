@@ -42,7 +42,7 @@
                                 </div>
                             </td>
                             <!-- CAMBIO: nombre de columna sale_price -->
-                            <td>$ {{ i.current_unit_cost|intcomma }}</td>
+                            <td class="fw-bold text-success">${{ p.sale_price|intcomma }}</td>
                             <td>
                                 {% if p.is_active %}
                                     <span class="badge bg-success-subtle text-success rounded-pill px-3">Activo</span>
