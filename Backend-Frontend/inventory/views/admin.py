@@ -4,13 +4,14 @@ from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from ..models import Products, Recipes, Ingredients, Branches
-from ..forms import ProductForm, IngredientForm, BranchForm
+from ..models import Products, Recipes, Ingredients, Branches, Inventories
+from ..forms import ProductForm, IngredientForm, BranchForm, RecipeForm
 from inventory.decorators import role_required
 
 RecipeFormSet = inlineformset_factory(
     Products, 
     Recipes, 
+    form=RecipeForm,  # <- Asegura que use RecipeForm para limpiar 30.0000 -> 30
     fields=['ingredient', 'quantity_required'], 
     extra=1, 
     can_delete=True
@@ -148,10 +149,22 @@ def eliminar_producto(request, producto_id):
 @role_required('ADMIN_SEDE')
 def lista_ingredientes(request):
     user_profile = request.user.profile
+    
+    # 1. Filtrar los ingredientes según el rol
     if request.user.is_superuser or user_profile.role.upper() == 'OWNER':
-        ingredientes = Ingredients.objects.all()
+        ingredientes = Ingredients.objects.select_related('unit_measure').all()
+        inventarios = Inventories.objects.all()
     else:
-        ingredientes = Ingredients.objects.filter(branch=user_profile.branch)
+        ingredientes = Ingredients.objects.select_related('unit_measure').filter(branch=user_profile.branch)
+        inventarios = Inventories.objects.filter(branch=user_profile.branch)
+
+    # 2. Mapa rápido en memoria {ingredient_id: current_unit_cost}
+    costos_map = {inv.ingredient_id: inv.current_unit_cost for inv in inventarios}
+
+    # 3. Asignar el atributo al vuelo en cada objeto
+    for ing in ingredientes:
+        ing.current_unit_cost = costos_map.get(ing.id, 0)
+
     return render(request, 'admin/lista_ingredientes.html', {'ingredientes': ingredientes})
 
 @login_required

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db import transaction
-from django.db.models import Sum
+from django.db.models import Sum, Min
 from django.db.models.functions import TruncMinute
 from inventory.models import Branches, Ingredients, Inventories, Transformations, TransformationItems, Sales, InventoryMovements, PaymentMethods
 from inventory.decorators import role_required
@@ -220,10 +220,15 @@ def modulo_caja(request):
         })
         mesas_dict[mesa]['total'] += float(venta.total_sale_price)
 
-    ventas_cerradas_agrupadas = ventas_cerradas.annotate(fecha_minuto=TruncMinute('created_at'))\
-        .values('table_name', 'fecha_minuto')\
-        .annotate(total_cuenta=Sum('total_sale_price'))\
-        .order_by('-fecha_minuto')[:10]
+    ventas_cerradas_agrupadas = (
+        ventas_cerradas.annotate(fecha_minuto=TruncMinute('created_at'))
+        .values('table_name', 'fecha_minuto', 'payment_method__name')
+        .annotate(
+            total_cuenta=Sum('total_sale_price'),
+            ticket_id=Min('id')
+        )
+        .order_by('-fecha_minuto')[:15]
+    )
 
     # Obtenemos los métodos de pago habilitados
     metodos_pago = PaymentMethods.objects.filter(is_active=True)
