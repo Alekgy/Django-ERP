@@ -220,25 +220,20 @@ def modulo_caja(request):
         })
         mesas_dict[mesa]['total'] += float(venta.total_sale_price)
 
-    ventas_cerradas_agrupadas = (
-        ventas_cerradas.annotate(
-            fecha_minuto=TruncMinute('created_at'),
-            id_texto=Cast('id', output_field=CharField()) # Convierte el UUID a String para PostgreSQL
-        )
-        .values('table_name', 'fecha_minuto', 'payment_method__name')
-        .annotate(
-            total_cuenta=Sum('total_sale_price'),
-            ticket_id=Min('id_texto') # PostgreSQL sí soporta MIN en cadenas de texto
-        )
-        .order_by('-fecha_minuto')[:15]
+    mesas_cerradas_lista = (
+        ventas_cerradas
+        .select_related('payment_method', 'product')
+        .order_by('-created_at')[:20]  # Trae las últimas 20 transacciones individuales
     )
+
+    metodos_pago = PaymentMethods.objects.filter(is_active=True)
 
     # Obtenemos los métodos de pago habilitados
     metodos_pago = PaymentMethods.objects.filter(is_active=True)
 
     return render(request, 'inventory/caja.html', {
         'mesas_abiertas': mesas_dict,
-        'mesas_cerradas': ventas_cerradas_agrupadas,
+        'mesas_cerradas': mesas_cerradas_lista,
         'metodos_pago': metodos_pago,
         'umbral': umbral
     })
