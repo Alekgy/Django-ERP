@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db import transaction
-from django.db.models import Sum, Min
-from django.db.models.functions import TruncMinute
+from django.db.models import Sum, Min, CharField
+from django.db.models.functions import TruncMinute, Cast
 from inventory.models import Branches, Ingredients, Inventories, Transformations, TransformationItems, Sales, InventoryMovements, PaymentMethods
 from inventory.decorators import role_required
 
@@ -221,11 +221,14 @@ def modulo_caja(request):
         mesas_dict[mesa]['total'] += float(venta.total_sale_price)
 
     ventas_cerradas_agrupadas = (
-        ventas_cerradas.annotate(fecha_minuto=TruncMinute('created_at'))
+        ventas_cerradas.annotate(
+            fecha_minuto=TruncMinute('created_at'),
+            id_texto=Cast('id', output_field=CharField()) # Convierte el UUID a String para PostgreSQL
+        )
         .values('table_name', 'fecha_minuto', 'payment_method__name')
         .annotate(
             total_cuenta=Sum('total_sale_price'),
-            ticket_id=Min('id')
+            ticket_id=Min('id_texto') # PostgreSQL sí soporta MIN en cadenas de texto
         )
         .order_by('-fecha_minuto')[:15]
     )
