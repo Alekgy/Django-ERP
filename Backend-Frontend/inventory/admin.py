@@ -3,6 +3,7 @@ from .models import (
     Branches, Ingredients, Products, 
     Recipes, Inventories, Sales, UnitMeasures, UserProfile
 )
+from .forms import RecipeForm
 
 class InventoriesInline(admin.TabularInline):
     model = Inventories
@@ -11,6 +12,7 @@ class InventoriesInline(admin.TabularInline):
 
 class RecipeInline(admin.TabularInline):
     model = Recipes
+    form = RecipeForm  # <- Vincula el formulario aquí también
     extra = 1
     autocomplete_fields = ['ingredient']
 

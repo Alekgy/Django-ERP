@@ -13,13 +13,17 @@ from inventory.decorators import role_required
 
 def demo_login(request):
     """Inicia sesión con un usuario demo sin pedir credenciales."""
-    # Busca el usuario demo o tu usuario de pruebas principal
-    demo_user = User.objects.filter(is_superuser=True).first()  # o: User.objects.filter(username='tu_usuario_demo').first()
+    # 1. Si ya tiene sesión abierta, entra de una
+    if request.user.is_authenticated:
+        return redirect('/') # o 'home' según la vista inicial deseada
+
+    # 2. Buscar al superusuario de la demo (Alejo)
+    demo_user = User.objects.filter(is_superuser=True).first()
     
     if demo_user:
-        login(request, demo_user)
-        messages.info(request, "Accediste en Modo Demo.")
-        return redirect('home')
+        # IMPORTANTE: especificar el backend para evitar excepciones de Django
+        login(request, demo_user, backend='django.contrib.auth.backends.ModelBackend')
+        return redirect('/')  # Entra directo al panel maestro sin mensajes que distraigan
     
     messages.error(request, "No se encontró el usuario demo.")
     return redirect('login')

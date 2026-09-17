@@ -1,0 +1,2269 @@
+[
+{
+  "model": "inventory.branches",
+  "pk": "317a16e4-343a-4822-bbef-751e82e43eb7",
+  "fields": {
+    "name": "La Xarcuteria - Zona G",
+    "address": "Calle 69a # 4-05, Zona G",
+    "phone": "(601) 312-4567",
+    "created_at": "2026-07-15T18:27:51.277Z"
+  }
+},
+{
+  "model": "inventory.branches",
+  "pk": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+  "fields": {
+    "name": "La Xarcuteria - Parque 93",
+    "address": "Carrera 13 # 93a-45, Chicó",
+    "phone": "(601) 485-9988",
+    "created_at": "2026-07-15T18:27:51.294Z"
+  }
+},
+{
+  "model": "inventory.branches",
+  "pk": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+  "fields": {
+    "name": "La Xarcuteria - Usaquén",
+    "address": "Calle 119 # 6-18, Usaquén",
+    "phone": "(601) 620-1122",
+    "created_at": "2026-07-15T18:27:51.288Z"
+  }
+},
+{
+  "model": "inventory.unitmeasures",
+  "pk": "85f900f7-bd3e-4b43-a61c-13af1f7558d0",
+  "fields": {
+    "name": "Unidades",
+    "abbreviation": "und"
+  }
+},
+{
+  "model": "inventory.unitmeasures",
+  "pk": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+  "fields": {
+    "name": "Gramos",
+    "abbreviation": "g"
+  }
+},
+{
+  "model": "inventory.unitmeasures",
+  "pk": "b6216288-e965-46fc-a758-4bc11caf449b",
+  "fields": {
+    "name": "Mililitros",
+    "abbreviation": "ml"
+  }
+},
+{
+  "model": "inventory.paymentmethods",
+  "pk": "7dd26c36-7685-4368-8c89-e2af7aadd47e",
+  "fields": {
+    "name": "Transferencia (Nequi/Daviplata)",
+    "is_active": true
+  }
+},
+{
+  "model": "inventory.paymentmethods",
+  "pk": "ad7d9d06-8b3b-4c4c-a488-752999ad90d4",
+  "fields": {
+    "name": "Tarjeta Débito/Crédito",
+    "is_active": true
+  }
+},
+{
+  "model": "inventory.paymentmethods",
+  "pk": "ccd3958b-a616-4957-bc01-95ac7a5f5233",
+  "fields": {
+    "name": "Efectivo",
+    "is_active": true
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+  "fields": {
+    "name": "Pan Brioche de la Casa",
+    "min_stock_threshold": "500.00",
+    "unit_measure": "85f900f7-bd3e-4b43-a61c-13af1f7558d0",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.377Z",
+    "updated_at": "2026-07-15T18:27:51.377Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+  "fields": {
+    "name": "Salsa BBQ de la Casa",
+    "min_stock_threshold": "4000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.524Z",
+    "updated_at": "2026-07-15T18:27:51.524Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "1f765e85-a299-451d-9b54-d2a47bf3dbab",
+  "fields": {
+    "name": "Filet de Pechuga de Pollo",
+    "min_stock_threshold": "8000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.566Z",
+    "updated_at": "2026-07-15T18:27:51.566Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "2121710f-f86c-4d47-a56f-2d04ead25c72",
+  "fields": {
+    "name": "Carne de Res Molida Blend",
+    "min_stock_threshold": "15000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.336Z",
+    "updated_at": "2026-07-15T18:27:51.336Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "23dfc604-e6a0-4bcf-a2ee-6889164fabfa",
+  "fields": {
+    "name": "Soda Clausen",
+    "min_stock_threshold": "20000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.822Z",
+    "updated_at": "2026-07-15T18:27:51.822Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "371cd54f-69b9-4c1f-ae10-627df4f1eab7",
+  "fields": {
+    "name": "Menta Fresca Yerbabuena",
+    "min_stock_threshold": "1000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.801Z",
+    "updated_at": "2026-07-15T18:27:51.801Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "37367b86-d854-4ffa-94e0-1b0763b091a5",
+  "fields": {
+    "name": "Ron SantaFe 4 Años",
+    "min_stock_threshold": "12000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "LICOR",
+    "created_at": "2026-07-15T18:27:51.690Z",
+    "updated_at": "2026-07-15T18:27:51.690Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "3e566af8-fbf3-4f98-acad-7de17508773f",
+  "fields": {
+    "name": "Tequila José Cuervo Especial",
+    "min_stock_threshold": "8000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "LICOR",
+    "created_at": "2026-07-15T18:27:51.713Z",
+    "updated_at": "2026-07-15T18:27:51.713Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "5cea8116-514e-4778-a620-ea5a364798e4",
+  "fields": {
+    "name": "Panceta de Cerdo Curada",
+    "min_stock_threshold": "8000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.356Z",
+    "updated_at": "2026-07-15T18:27:51.356Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "61ea5971-8e73-4b4e-b53f-7ec254ca71a8",
+  "fields": {
+    "name": "Ginebra Tanqueray",
+    "min_stock_threshold": "10000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "LICOR",
+    "created_at": "2026-07-15T18:27:51.588Z",
+    "updated_at": "2026-07-15T18:27:51.588Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+  "fields": {
+    "name": "Limón Mandarino",
+    "min_stock_threshold": "600.00",
+    "unit_measure": "85f900f7-bd3e-4b43-a61c-13af1f7558d0",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.736Z",
+    "updated_at": "2026-07-15T18:27:51.736Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "9076432a-7f74-449e-a928-467c0186e0d9",
+  "fields": {
+    "name": "Cebolla Caramelizada",
+    "min_stock_threshold": "5000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.479Z",
+    "updated_at": "2026-07-15T18:27:51.479Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "995bd975-b163-4149-9442-3ce092057a8d",
+  "fields": {
+    "name": "Pan Ciabatta Artesanal",
+    "min_stock_threshold": "300.00",
+    "unit_measure": "85f900f7-bd3e-4b43-a61c-13af1f7558d0",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.398Z",
+    "updated_at": "2026-07-15T18:27:51.398Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "9e481a68-6580-461f-b308-9f642abc5919",
+  "fields": {
+    "name": "Jarabe de Goma Simple",
+    "min_stock_threshold": "5000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.758Z",
+    "updated_at": "2026-07-15T18:27:51.758Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "a180116b-7b06-4226-a880-a3cbad6f0710",
+  "fields": {
+    "name": "Costillas de Cerdo Ahumadas",
+    "min_stock_threshold": "12000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.547Z",
+    "updated_at": "2026-07-15T18:27:51.547Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+  "fields": {
+    "name": "Queso Cheddar Maduro",
+    "min_stock_threshold": "1000.00",
+    "unit_measure": "85f900f7-bd3e-4b43-a61c-13af1f7558d0",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.420Z",
+    "updated_at": "2026-07-15T18:27:51.420Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "b86612c0-2c1e-40b0-a263-86648f15b091",
+  "fields": {
+    "name": "Queso Siete Cueros Local",
+    "min_stock_threshold": "5000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.437Z",
+    "updated_at": "2026-07-15T18:27:51.437Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "cdd3978c-23bc-4a6a-b927-2aef2f3b3bcf",
+  "fields": {
+    "name": "Extracto de Maracuyá Nativo",
+    "min_stock_threshold": "6000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.781Z",
+    "updated_at": "2026-07-15T18:27:51.781Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "cf84440d-71ea-44cc-ac43-6d66e671b095",
+  "fields": {
+    "name": "Cerveza BBC Cajicá Miel",
+    "min_stock_threshold": "50000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "LICOR",
+    "created_at": "2026-07-15T18:27:51.646Z",
+    "updated_at": "2026-07-15T18:27:51.646Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "d095ca13-3f19-485d-887d-f4d01f7e6beb",
+  "fields": {
+    "name": "Cerveza BBC Monserrate",
+    "min_stock_threshold": "50000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "LICOR",
+    "created_at": "2026-07-15T18:27:51.627Z",
+    "updated_at": "2026-07-15T18:27:51.627Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "d1e0811a-2b93-47a2-b3a9-77dfeb1af20b",
+  "fields": {
+    "name": "Agua Tónica Premium",
+    "min_stock_threshold": "15000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "INSUMO",
+    "created_at": "2026-07-15T18:27:51.607Z",
+    "updated_at": "2026-07-15T18:27:51.607Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "d93c5ed3-4632-4227-adc2-cb524890011e",
+  "fields": {
+    "name": "Alitas de Pollo Seleccionadas",
+    "min_stock_threshold": "10000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.503Z",
+    "updated_at": "2026-07-15T18:27:51.503Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "f1173d29-a2d1-421d-988d-25a287c249b3",
+  "fields": {
+    "name": "Vodka Absolut",
+    "min_stock_threshold": "8000.00",
+    "unit_measure": "b6216288-e965-46fc-a758-4bc11caf449b",
+    "category": "LICOR",
+    "created_at": "2026-07-15T18:27:51.671Z",
+    "updated_at": "2026-07-15T18:27:51.671Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.ingredients",
+  "pk": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+  "fields": {
+    "name": "Papas Nativas Rústicas",
+    "min_stock_threshold": "30000.00",
+    "unit_measure": "8aecdb03-699b-4ebc-ba2a-551a07eedba2",
+    "category": "MATERIA PRIMA",
+    "created_at": "2026-07-15T18:27:51.456Z",
+    "updated_at": "2026-07-15T18:27:51.456Z",
+    "deleted_at": null
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "054cb820-9710-4a6f-9ad1-5e7b6f6ef37c",
+  "fields": {
+    "name": "Sándwich de Pulled Pork",
+    "description": "Cerdo desmechado ahumado por 8 horas en salsa BBQ de la casa, servido en pan ciabatta crocante.",
+    "sale_price": "29500.00",
+    "production_cost": "9200.00",
+    "is_active": true,
+    "image_path": "media_erp/pulled_dt048u9.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.904Z",
+    "updated_at": "2026-08-24T18:14:31.702Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "21fa12ac-c107-42ab-bcfd-1733ba8ae1f1",
+  "fields": {
+    "name": "Soda Saborizada de Maracuyá",
+    "description": "Opción sin alcohol: Soda premium con pulpa artesanal de maracuyá y menta fresca.",
+    "sale_price": "11900.00",
+    "production_cost": "2100.00",
+    "is_active": true,
+    "image_path": "media_erp/soda.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.226Z",
+    "updated_at": "2026-08-24T18:16:52.373Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "30592792-812e-4f1a-82ab-a02df357828e",
+  "fields": {
+    "name": "Costillas BBQ Ahumadas",
+    "description": "Media libra de costillas de cerdo tiernas bañadas en BBQ artesanal con papas rústicas.",
+    "sale_price": "42900.00",
+    "production_cost": "16500.00",
+    "is_active": true,
+    "image_path": "media_erp/ribs.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.948Z",
+    "updated_at": "2026-08-24T18:15:12.048Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "3ea86e9c-a43d-4be5-9cc6-9a664e349cfe",
+  "fields": {
+    "name": "Papas Rústicas de la Casa",
+    "description": "Papas nativas colombianas cortadas a mano, con doble cocción y sal de hierbas.",
+    "sale_price": "10500.00",
+    "production_cost": "22000.00",
+    "is_active": true,
+    "image_path": "media_erp/rusticas.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.970Z",
+    "updated_at": "2026-08-24T18:15:17.554Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "50a6ba26-7185-421b-9253-ff9262dbf66b",
+  "fields": {
+    "name": "Gin & Tonic Xarcutero",
+    "description": "Ginebra Tanqueray, tónica premium y una rodaja fresca de limón mandarino.",
+    "sale_price": "31900.00",
+    "production_cost": "8800.00",
+    "is_active": true,
+    "image_path": "media_erp/gin_clasico.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.076Z",
+    "updated_at": "2026-08-24T18:16:05.246Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "582e37b4-03fb-44dd-b9f5-15272c6ec8b9",
+  "fields": {
+    "name": "Alitas Glaseadas BBQ (x8)",
+    "description": "Alitas de pollo perfectamente doradas y bañadas en nuestra icónica salsa BBQ.",
+    "sale_price": "21900.00",
+    "production_cost": "6500.00",
+    "is_active": true,
+    "image_path": "media_erp/wings.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.981Z",
+    "updated_at": "2026-08-24T18:15:25.040Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "765e2220-82d1-4efd-85bc-91d53bbde7ba",
+  "fields": {
+    "name": "Cerveza BBC Cajicá Miel",
+    "description": "Cerveza rubia artesanal ligera con sutiles toques de miel pura (330ml).",
+    "sale_price": "13500.00",
+    "production_cost": "4500.00",
+    "is_active": true,
+    "image_path": "media_erp/cajica.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.147Z",
+    "updated_at": "2026-08-24T18:16:33.683Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "839b2974-08fb-4fad-8cb1-1ebb26f3b809",
+  "fields": {
+    "name": "Hamburguesa La Xarcuteria",
+    "description": "Nuestra insignia de 150g, tocino crocante curado en casa, queso cheddar madurado y cebolla caramelizada.",
+    "sale_price": "34900.00",
+    "production_cost": "12500.00",
+    "is_active": true,
+    "image_path": "media_erp/burguer_0n3XPWP.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.845Z",
+    "updated_at": "2026-08-24T18:11:59.082Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "8e6b130d-8f41-4198-9b55-a35245cb3b6f",
+  "fields": {
+    "name": "Margarita Tradicional",
+    "description": "Tequila José Cuervo, triple sec artesanal, extracto de limón mandarino fresco con borde de sal.",
+    "sale_price": "27900.00",
+    "production_cost": "7500.00",
+    "is_active": true,
+    "image_path": "media_erp/margarita.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.124Z",
+    "updated_at": "2026-08-24T18:16:20.931Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "a9917e83-b3a5-496f-959e-21a541108ffe",
+  "fields": {
+    "name": "Cerveza BBC Monserrate Roja",
+    "description": "Cerveza artesanal de barril local, estilo Red Ale (330ml).",
+    "sale_price": "13500.00",
+    "production_cost": "4500.00",
+    "is_active": true,
+    "image_path": "media_erp/monserrate.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.143Z",
+    "updated_at": "2026-08-24T18:16:27.597Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "aba185ed-59b8-4dd7-a0a4-cf71b90561b2",
+  "fields": {
+    "name": "Caipiroska de Limón",
+    "description": "Vodka Absolut, cascos de limón mandarino macerados con azúcar fina y hielo triturado.",
+    "sale_price": "22900.00",
+    "production_cost": "5200.00",
+    "is_active": true,
+    "image_path": "media_erp/caipiroska.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.152Z",
+    "updated_at": "2026-08-24T18:16:36.764Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "b88c969c-caa2-41ea-b88b-27c4073ae7ce",
+  "fields": {
+    "name": "Gin & Tonic Clásico",
+    "description": "Ginebra Tanqueray y agua tónica helada con un twist de limón.",
+    "sale_price": "28900.00",
+    "production_cost": "7800.00",
+    "is_active": true,
+    "image_path": "media_erp/gin_46ObrdA.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.172Z",
+    "updated_at": "2026-08-24T18:16:42.995Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "b90b4b56-65c8-494a-9224-e242ede6e475",
+  "fields": {
+    "name": "Hamburguesa de Pollo y Cheddar",
+    "description": "Filet de pechuga a la plancha, queso cheddar derretido y cebolla caramelizada.",
+    "sale_price": "28900.00",
+    "production_cost": "8300.00",
+    "is_active": true,
+    "image_path": "media_erp/pollo_chedar.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.018Z",
+    "updated_at": "2026-08-24T18:15:49.530Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "b9a8b39b-af99-4cd7-a560-a4f7b4315115",
+  "fields": {
+    "name": "Sándwich de Pollo Crispy",
+    "description": "Pechuga de pollo apanada extracrispy, lechuga, queso siete cueros y mayonesa de la casa.",
+    "sale_price": "27900.00",
+    "production_cost": "8100.00",
+    "is_active": true,
+    "image_path": "media_erp/crispy-chicken-full_omNKxWK.png",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.923Z",
+    "updated_at": "2026-08-24T18:14:29.284Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "bc13b7d7-60dd-451b-95b7-cc5da85ac2c9",
+  "fields": {
+    "name": "Tabla de Madurados Locales",
+    "description": "Selección artesanal de la casa: panceta curada crujiente, quesos locales y pan ciabatta.",
+    "sale_price": "38900.00",
+    "production_cost": "14000.00",
+    "is_active": true,
+    "image_path": "media_erp/quesos.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.997Z",
+    "updated_at": "2026-08-24T18:15:34.186Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "ca7a863b-0e18-434a-9836-6c9faf91db31",
+  "fields": {
+    "name": "Mojito de Maracuyá",
+    "description": "Ron de la casa, extracto de maracuyá concentrado, menta fresca, jarabe simple y soda.",
+    "sale_price": "24900.00",
+    "production_cost": "5800.00",
+    "is_active": true,
+    "image_path": "media_erp/mojitomaracuya.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.095Z",
+    "updated_at": "2026-08-24T18:16:12.244Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "d9933f70-845c-4710-9ae6-a15bead6007c",
+  "fields": {
+    "name": "Tequila Sunrise",
+    "description": "Tequila, jugo de naranja fresco y un toque denso de granadina en el fondo.",
+    "sale_price": "26900.00",
+    "production_cost": "6900.00",
+    "is_active": true,
+    "image_path": "media_erp/tequla.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.209Z",
+    "updated_at": "2026-08-24T18:16:59.037Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "e7e92266-5d9f-471d-a08c-680ebed8474c",
+  "fields": {
+    "name": "Papas Xarcuteras Supremas",
+    "description": "Papas rústicas bañadas en salsa de queso cheddar y trozos de tocino curado crocante.",
+    "sale_price": "18900.00",
+    "production_cost": "5500.00",
+    "is_active": true,
+    "image_path": "media_erp/parmesano.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.047Z",
+    "updated_at": "2026-08-24T18:15:56.700Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "e92f7efd-c448-4361-a2f0-98a53309ea98",
+  "fields": {
+    "name": "Cuba Libre Premium",
+    "description": "Ron SantaFe de 4 años, Coca-Cola helada y un chorrito de limón fresco.",
+    "sale_price": "19900.00",
+    "production_cost": "4400.00",
+    "is_active": true,
+    "image_path": "media_erp/cuba.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:52.192Z",
+    "updated_at": "2026-08-24T18:16:48.037Z",
+    "deleted_at": null,
+    "preparation_area": "BAR"
+  }
+},
+{
+  "model": "inventory.products",
+  "pk": "e9ab6b3a-4b7a-48c6-8853-cbdd1c1adec6",
+  "fields": {
+    "name": "Hamburguesa Smashed Doble",
+    "description": "Estilo smashed clásico con doble costra, doble queso cheddar maduro y salsa secreta.",
+    "sale_price": "26900.00",
+    "production_cost": "7800.00",
+    "is_active": true,
+    "image_path": "media_erp/smashed_ecOT9Pj.jpg",
+    "image_url": null,
+    "created_at": "2026-07-15T18:27:51.884Z",
+    "updated_at": "2026-08-24T18:14:06.311Z",
+    "deleted_at": null,
+    "preparation_area": "COCINA"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "000d4aa8-6517-46cd-84b2-ded8cbf8007b",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "1f765e85-a299-451d-9b54-d2a47bf3dbab",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "22.00",
+    "current_unit_cost": "20.0000",
+    "created_at": "2026-07-15T18:27:51.573Z",
+    "updated_at": "2026-07-15T18:27:51.573Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "050cbe7c-5091-479d-802d-384cfa0ba0c8",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "9076432a-7f74-449e-a928-467c0186e0d9",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.494Z",
+    "updated_at": "2026-07-15T18:27:51.494Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "0996d553-7f1d-4112-a694-bb2fba537e2d",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "d93c5ed3-4632-4227-adc2-cb524890011e",
+    "stock_level": "50000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.519Z",
+    "updated_at": "2026-07-15T18:27:51.519Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "0aa44343-8d16-487c-8117-5e38ddb7e238",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "995bd975-b163-4149-9442-3ce092057a8d",
+    "stock_level": "1500.0000",
+    "last_purchase_price": "1540.00",
+    "current_unit_cost": "1400.0000",
+    "created_at": "2026-07-15T18:27:51.415Z",
+    "updated_at": "2026-07-15T18:27:51.415Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "14ffa973-812b-40d4-9309-11b346fe59a4",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "23dfc604-e6a0-4bcf-a2ee-6889164fabfa",
+    "stock_level": "100000.0000",
+    "last_purchase_price": "4.40",
+    "current_unit_cost": "4.0000",
+    "created_at": "2026-07-15T18:27:51.840Z",
+    "updated_at": "2026-07-15T18:27:51.840Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "172c19b0-7007-4330-aabc-c8a4a6049178",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "9076432a-7f74-449e-a928-467c0186e0d9",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.484Z",
+    "updated_at": "2026-07-15T18:27:51.484Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "19924576-9f56-450a-bbbd-4af80b32aabf",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+    "stock_level": "150000.0000",
+    "last_purchase_price": "8.80",
+    "current_unit_cost": "8.0000",
+    "created_at": "2026-07-15T18:27:51.461Z",
+    "updated_at": "2026-07-15T18:27:51.462Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "1b78f1c5-dc91-4a9b-9ecb-3010c35c1180",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "995bd975-b163-4149-9442-3ce092057a8d",
+    "stock_level": "1500.0000",
+    "last_purchase_price": "1540.00",
+    "current_unit_cost": "1400.0000",
+    "created_at": "2026-07-15T18:27:51.408Z",
+    "updated_at": "2026-07-15T18:27:51.408Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "1da2ec9b-c43b-45ca-aff7-ba6c2fdfb09c",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "2121710f-f86c-4d47-a56f-2d04ead25c72",
+    "stock_level": "75000.0000",
+    "last_purchase_price": "27.50",
+    "current_unit_cost": "25.0000",
+    "created_at": "2026-07-15T18:27:51.346Z",
+    "updated_at": "2026-07-15T18:27:51.346Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "204f4209-037a-4ce7-8fd1-5e477761c428",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "371cd54f-69b9-4c1f-ae10-627df4f1eab7",
+    "stock_level": "5000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.812Z",
+    "updated_at": "2026-07-15T18:27:51.812Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "22537fba-a2ff-4e97-97f0-aa59192d8b33",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "d095ca13-3f19-485d-887d-f4d01f7e6beb",
+    "stock_level": "250000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.635Z",
+    "updated_at": "2026-07-15T18:27:51.635Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "22e3f823-9bda-49be-aca1-a3a573334ea0",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "b86612c0-2c1e-40b0-a263-86648f15b091",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "19.80",
+    "current_unit_cost": "18.0000",
+    "created_at": "2026-07-15T18:27:51.452Z",
+    "updated_at": "2026-07-15T18:27:51.452Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "245ef2ec-345f-4607-a6ff-83404716c8f7",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "stock_level": "5000.0000",
+    "last_purchase_price": "660.00",
+    "current_unit_cost": "600.0000",
+    "created_at": "2026-07-15T18:27:51.429Z",
+    "updated_at": "2026-07-15T18:27:51.429Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "314e682f-84f1-4d03-9b17-77ce2f39b6e3",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "cdd3978c-23bc-4a6a-b927-2aef2f3b3bcf",
+    "stock_level": "30000.0000",
+    "last_purchase_price": "8.80",
+    "current_unit_cost": "8.0000",
+    "created_at": "2026-07-15T18:27:51.796Z",
+    "updated_at": "2026-07-15T18:27:51.796Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "34f992d3-33ce-4ed2-9ced-f80e5f2127b3",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+    "stock_level": "150000.0000",
+    "last_purchase_price": "8.80",
+    "current_unit_cost": "8.0000",
+    "created_at": "2026-07-15T18:27:51.474Z",
+    "updated_at": "2026-07-15T18:27:51.474Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "35d112ad-7eb8-4d7b-8146-b52ef7aaa877",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+    "stock_level": "20000.0000",
+    "last_purchase_price": "11.00",
+    "current_unit_cost": "10.0000",
+    "created_at": "2026-07-15T18:27:51.529Z",
+    "updated_at": "2026-07-15T18:27:51.529Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "37277426-c621-4b77-b693-295d06092185",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "d095ca13-3f19-485d-887d-f4d01f7e6beb",
+    "stock_level": "250000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.641Z",
+    "updated_at": "2026-07-15T18:27:51.641Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "38609758-34e4-4007-bc1c-1d8ea4f68067",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "37367b86-d854-4ffa-94e0-1b0763b091a5",
+    "stock_level": "60000.0000",
+    "last_purchase_price": "66.00",
+    "current_unit_cost": "60.0000",
+    "created_at": "2026-07-15T18:27:51.695Z",
+    "updated_at": "2026-07-15T18:27:51.695Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "3c4d4afc-ca6d-4f1d-adcf-b74e1fd3c14d",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "f1173d29-a2d1-421d-988d-25a287c249b3",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "104.50",
+    "current_unit_cost": "95.0000",
+    "created_at": "2026-07-15T18:27:51.681Z",
+    "updated_at": "2026-07-15T18:27:51.681Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "3e155456-004f-49c7-8bbc-ddbb33d1baa2",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "37367b86-d854-4ffa-94e0-1b0763b091a5",
+    "stock_level": "60000.0000",
+    "last_purchase_price": "66.00",
+    "current_unit_cost": "60.0000",
+    "created_at": "2026-07-15T18:27:51.706Z",
+    "updated_at": "2026-07-15T18:27:51.706Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "42d3003d-e55b-4903-b9b4-1e704e274599",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "3e566af8-fbf3-4f98-acad-7de17508773f",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "132.00",
+    "current_unit_cost": "120.0000",
+    "created_at": "2026-07-15T18:27:51.728Z",
+    "updated_at": "2026-07-15T18:27:51.728Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "48ae57e5-defa-4e6a-bfaf-376b3b2d875d",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "cf84440d-71ea-44cc-ac43-6d66e671b095",
+    "stock_level": "250000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.665Z",
+    "updated_at": "2026-07-15T18:27:51.665Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "5488d1f9-8c21-4525-9f13-7bb9178ca152",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "d1e0811a-2b93-47a2-b3a9-77dfeb1af20b",
+    "stock_level": "75000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.611Z",
+    "updated_at": "2026-07-15T18:27:51.611Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "55f9772f-dfea-48e1-8e07-c17fcd9e29a7",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "stock_level": "2500.0000",
+    "last_purchase_price": "1320.00",
+    "current_unit_cost": "1200.0000",
+    "created_at": "2026-07-15T18:27:51.393Z",
+    "updated_at": "2026-07-15T18:27:51.393Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "683275ac-b406-49f9-802a-b5c213e8db37",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "5.50",
+    "current_unit_cost": "5.0000",
+    "created_at": "2026-07-15T18:27:51.771Z",
+    "updated_at": "2026-07-15T18:27:51.771Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "78b6cb84-480a-43fe-b9ae-9b62afb34f26",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "stock_level": "2500.0000",
+    "last_purchase_price": "1320.00",
+    "current_unit_cost": "1200.0000",
+    "created_at": "2026-07-15T18:27:51.387Z",
+    "updated_at": "2026-07-15T18:27:51.387Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "78fc2226-01f9-4a2d-863d-38d5b225c1e1",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "995bd975-b163-4149-9442-3ce092057a8d",
+    "stock_level": "1500.0000",
+    "last_purchase_price": "1540.00",
+    "current_unit_cost": "1400.0000",
+    "created_at": "2026-07-15T18:27:51.403Z",
+    "updated_at": "2026-07-15T18:27:51.403Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "7a2010c9-57ce-4515-8f08-c87cdcb702cf",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "61ea5971-8e73-4b4e-b53f-7ec254ca71a8",
+    "stock_level": "50000.0000",
+    "last_purchase_price": "121.00",
+    "current_unit_cost": "110.0000",
+    "created_at": "2026-07-15T18:27:51.596Z",
+    "updated_at": "2026-07-15T18:27:51.596Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "85f682fe-99b1-47bc-afe0-ecc3a6f1eff5",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "3e566af8-fbf3-4f98-acad-7de17508773f",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "132.00",
+    "current_unit_cost": "120.0000",
+    "created_at": "2026-07-15T18:27:51.718Z",
+    "updated_at": "2026-07-15T18:27:51.718Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "8631dd98-036a-466c-b43b-592adfa874b7",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "stock_level": "5000.0000",
+    "last_purchase_price": "660.00",
+    "current_unit_cost": "600.0000",
+    "created_at": "2026-07-15T18:27:51.433Z",
+    "updated_at": "2026-07-15T18:27:51.433Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "8842f371-f99a-4077-a396-870b6a6fb37a",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "stock_level": "3000.0000",
+    "last_purchase_price": "440.00",
+    "current_unit_cost": "400.0000",
+    "created_at": "2026-07-15T18:27:51.746Z",
+    "updated_at": "2026-07-15T18:27:51.746Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "8a4fd180-fda2-47c4-92cd-9f8a7d9e6cfc",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "cf84440d-71ea-44cc-ac43-6d66e671b095",
+    "stock_level": "250000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.658Z",
+    "updated_at": "2026-07-15T18:27:51.658Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "8f71f548-f976-4947-87d8-fa3c5b636e29",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "61ea5971-8e73-4b4e-b53f-7ec254ca71a8",
+    "stock_level": "50000.0000",
+    "last_purchase_price": "121.00",
+    "current_unit_cost": "110.0000",
+    "created_at": "2026-07-15T18:27:51.592Z",
+    "updated_at": "2026-07-15T18:27:51.592Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "90945a65-efc1-4ea4-a40f-4ee939bd1ba6",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "f1173d29-a2d1-421d-988d-25a287c249b3",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "104.50",
+    "current_unit_cost": "95.0000",
+    "created_at": "2026-07-15T18:27:51.676Z",
+    "updated_at": "2026-07-15T18:27:51.676Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "9486f500-bda6-40eb-98b4-f544f69eac96",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "d1e0811a-2b93-47a2-b3a9-77dfeb1af20b",
+    "stock_level": "75000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.621Z",
+    "updated_at": "2026-07-15T18:27:51.621Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "94d1b162-547f-427f-bfde-460c579e3447",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+    "stock_level": "20000.0000",
+    "last_purchase_price": "11.00",
+    "current_unit_cost": "10.0000",
+    "created_at": "2026-07-15T18:27:51.534Z",
+    "updated_at": "2026-07-15T18:27:51.534Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "9672e16f-466a-48e8-af17-1075d6de4400",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+    "stock_level": "20000.0000",
+    "last_purchase_price": "11.00",
+    "current_unit_cost": "10.0000",
+    "created_at": "2026-07-15T18:27:51.539Z",
+    "updated_at": "2026-07-15T18:27:51.539Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "97ed42a5-47fc-43a2-a2aa-55d4d7639507",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "d93c5ed3-4632-4227-adc2-cb524890011e",
+    "stock_level": "50000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.514Z",
+    "updated_at": "2026-07-15T18:27:51.514Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "9f1cc937-29bc-43a2-b29a-db5710b59eb3",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "stock_level": "3000.0000",
+    "last_purchase_price": "440.00",
+    "current_unit_cost": "400.0000",
+    "created_at": "2026-07-15T18:27:51.750Z",
+    "updated_at": "2026-07-15T18:27:51.750Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "aac244ba-22e9-43de-bf44-8311aaa7a47a",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "stock_level": "3000.0000",
+    "last_purchase_price": "440.00",
+    "current_unit_cost": "400.0000",
+    "created_at": "2026-07-15T18:27:51.741Z",
+    "updated_at": "2026-07-15T18:27:51.741Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "ab9727f3-1704-4d1f-b85a-c5137c3463e2",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "38.50",
+    "current_unit_cost": "35.0000",
+    "created_at": "2026-07-15T18:27:51.367Z",
+    "updated_at": "2026-07-15T18:27:51.367Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "ad87d827-3162-43fc-ac80-b9e5d664cd2a",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "3e566af8-fbf3-4f98-acad-7de17508773f",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "132.00",
+    "current_unit_cost": "120.0000",
+    "created_at": "2026-07-15T18:27:51.723Z",
+    "updated_at": "2026-07-15T18:27:51.723Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "b0a8eddf-59c4-4ffe-b736-279d104714c4",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "b86612c0-2c1e-40b0-a263-86648f15b091",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "19.80",
+    "current_unit_cost": "18.0000",
+    "created_at": "2026-07-15T18:27:51.442Z",
+    "updated_at": "2026-07-15T18:27:51.442Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "b5d66eb4-324b-4b6c-ad67-81c6d19b753e",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "a180116b-7b06-4226-a880-a3cbad6f0710",
+    "stock_level": "60000.0000",
+    "last_purchase_price": "49.50",
+    "current_unit_cost": "45.0000",
+    "created_at": "2026-07-15T18:27:51.556Z",
+    "updated_at": "2026-07-15T18:27:51.556Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "b9bb20f4-3411-4c2f-9915-caa6b68f8a47",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "2121710f-f86c-4d47-a56f-2d04ead25c72",
+    "stock_level": "75000.0000",
+    "last_purchase_price": "27.50",
+    "current_unit_cost": "25.0000",
+    "created_at": "2026-07-15T18:27:51.351Z",
+    "updated_at": "2026-07-15T18:27:51.351Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "bec94a55-3c93-40c8-99ad-9c634fba63cd",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "d095ca13-3f19-485d-887d-f4d01f7e6beb",
+    "stock_level": "250000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.631Z",
+    "updated_at": "2026-07-15T18:27:51.631Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "bf2c1020-d9bc-491e-ad88-eae0bd2599fb",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "37367b86-d854-4ffa-94e0-1b0763b091a5",
+    "stock_level": "60000.0000",
+    "last_purchase_price": "66.00",
+    "current_unit_cost": "60.0000",
+    "created_at": "2026-07-15T18:27:51.699Z",
+    "updated_at": "2026-07-15T18:27:51.699Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "c5f3cf9d-4f74-4639-88be-af2783655cd5",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "38.50",
+    "current_unit_cost": "35.0000",
+    "created_at": "2026-07-15T18:27:51.362Z",
+    "updated_at": "2026-07-15T18:27:51.362Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "c6b06657-f83d-416e-93dd-2c399ae82833",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "38.50",
+    "current_unit_cost": "35.0000",
+    "created_at": "2026-07-15T18:27:51.372Z",
+    "updated_at": "2026-07-15T18:27:51.372Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "c70997aa-d6e1-4c51-a15d-492a6342f0d9",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+    "stock_level": "150000.0000",
+    "last_purchase_price": "8.80",
+    "current_unit_cost": "8.0000",
+    "created_at": "2026-07-15T18:27:51.466Z",
+    "updated_at": "2026-07-15T18:27:51.466Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "cbb863cf-a1e3-4742-8c08-7401cdcf6b9b",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "371cd54f-69b9-4c1f-ae10-627df4f1eab7",
+    "stock_level": "5000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.817Z",
+    "updated_at": "2026-07-15T18:27:51.817Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "cdbed85b-ca31-485a-b1ec-74563434a218",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "b86612c0-2c1e-40b0-a263-86648f15b091",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "19.80",
+    "current_unit_cost": "18.0000",
+    "created_at": "2026-07-15T18:27:51.447Z",
+    "updated_at": "2026-07-15T18:27:51.447Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "cfd4ea7d-7897-4d98-954d-9f5042b5335c",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "371cd54f-69b9-4c1f-ae10-627df4f1eab7",
+    "stock_level": "5000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.807Z",
+    "updated_at": "2026-07-15T18:27:51.807Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "d1e54b6f-480a-4002-b667-d311a2fb3870",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "1f765e85-a299-451d-9b54-d2a47bf3dbab",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "22.00",
+    "current_unit_cost": "20.0000",
+    "created_at": "2026-07-15T18:27:51.582Z",
+    "updated_at": "2026-07-15T18:27:51.582Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "d39f97a1-d86f-4cd3-b34c-1beda017baa2",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "cf84440d-71ea-44cc-ac43-6d66e671b095",
+    "stock_level": "250000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.651Z",
+    "updated_at": "2026-07-15T18:27:51.651Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "d5539ab2-4aa7-4418-9011-00a1398a84dc",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "2121710f-f86c-4d47-a56f-2d04ead25c72",
+    "stock_level": "76500.0000",
+    "last_purchase_price": "27.50",
+    "current_unit_cost": "25.0000",
+    "created_at": "2026-07-15T18:27:51.341Z",
+    "updated_at": "2026-07-15T23:10:59.460Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "d56e9bfb-57d7-4a6e-b8b5-a8f280618541",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "cdd3978c-23bc-4a6a-b927-2aef2f3b3bcf",
+    "stock_level": "30000.0000",
+    "last_purchase_price": "8.80",
+    "current_unit_cost": "8.0000",
+    "created_at": "2026-07-15T18:27:51.791Z",
+    "updated_at": "2026-07-15T18:27:51.791Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "d65814f5-e3e8-4278-8c01-d25caa3b2c1a",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "stock_level": "2500.0000",
+    "last_purchase_price": "1320.00",
+    "current_unit_cost": "1200.0000",
+    "created_at": "2026-07-15T18:27:51.381Z",
+    "updated_at": "2026-07-15T18:27:51.381Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "d93d75f6-a48b-43c5-916e-636e54b9f76a",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "stock_level": "5000.0000",
+    "last_purchase_price": "660.00",
+    "current_unit_cost": "600.0000",
+    "created_at": "2026-07-15T18:27:51.424Z",
+    "updated_at": "2026-07-15T18:27:51.424Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "dcd678ae-59d1-4593-bb9a-403dcaec8a47",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "a180116b-7b06-4226-a880-a3cbad6f0710",
+    "stock_level": "60000.0000",
+    "last_purchase_price": "49.50",
+    "current_unit_cost": "45.0000",
+    "created_at": "2026-07-15T18:27:51.551Z",
+    "updated_at": "2026-07-15T18:27:51.551Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "e5db5a94-a410-40a3-be2d-76f80f2d0c54",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "23dfc604-e6a0-4bcf-a2ee-6889164fabfa",
+    "stock_level": "100000.0000",
+    "last_purchase_price": "4.40",
+    "current_unit_cost": "4.0000",
+    "created_at": "2026-07-15T18:27:51.835Z",
+    "updated_at": "2026-07-15T18:27:51.835Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "e6227957-26e2-4383-b1a0-d8aebcc394c8",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "1f765e85-a299-451d-9b54-d2a47bf3dbab",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "22.00",
+    "current_unit_cost": "20.0000",
+    "created_at": "2026-07-15T18:27:51.578Z",
+    "updated_at": "2026-07-15T18:27:51.578Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "e7b4932d-ee98-4c66-bc18-38b0a00ff236",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "d93c5ed3-4632-4227-adc2-cb524890011e",
+    "stock_level": "50000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.509Z",
+    "updated_at": "2026-07-15T18:27:51.509Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "e832cb88-5283-4162-95da-a0add005b058",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "5.50",
+    "current_unit_cost": "5.0000",
+    "created_at": "2026-07-15T18:27:51.764Z",
+    "updated_at": "2026-07-15T18:27:51.764Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "e8c2d525-4a69-44ed-87bf-3f7dd1863ac0",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "d1e0811a-2b93-47a2-b3a9-77dfeb1af20b",
+    "stock_level": "75000.0000",
+    "last_purchase_price": "16.50",
+    "current_unit_cost": "15.0000",
+    "created_at": "2026-07-15T18:27:51.616Z",
+    "updated_at": "2026-07-15T18:27:51.616Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "ee3daec9-1f37-4528-83b8-49766ca54e44",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "61ea5971-8e73-4b4e-b53f-7ec254ca71a8",
+    "stock_level": "50000.0000",
+    "last_purchase_price": "121.00",
+    "current_unit_cost": "110.0000",
+    "created_at": "2026-07-15T18:27:51.601Z",
+    "updated_at": "2026-07-15T18:27:51.601Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "ef5ec777-6bdd-4424-9e67-7ba9ddc7db58",
+  "fields": {
+    "branch": "64bb2333-7e0f-4833-b2f7-65048d475f60",
+    "ingredient": "9076432a-7f74-449e-a928-467c0186e0d9",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "13.20",
+    "current_unit_cost": "12.0000",
+    "created_at": "2026-07-15T18:27:51.489Z",
+    "updated_at": "2026-07-15T18:27:51.489Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "f2087b0a-b0cb-491e-a806-f459ace08051",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "stock_level": "25000.0000",
+    "last_purchase_price": "5.50",
+    "current_unit_cost": "5.0000",
+    "created_at": "2026-07-15T18:27:51.776Z",
+    "updated_at": "2026-07-15T18:27:51.776Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "f3d68797-89ec-4b50-92e5-f02b2a19d8da",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "cdd3978c-23bc-4a6a-b927-2aef2f3b3bcf",
+    "stock_level": "30000.0000",
+    "last_purchase_price": "8.80",
+    "current_unit_cost": "8.0000",
+    "created_at": "2026-07-15T18:27:51.786Z",
+    "updated_at": "2026-07-15T18:27:51.786Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "f446b308-8c56-42fc-8907-a9a53585e6ad",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "a180116b-7b06-4226-a880-a3cbad6f0710",
+    "stock_level": "60000.0000",
+    "last_purchase_price": "49.50",
+    "current_unit_cost": "45.0000",
+    "created_at": "2026-07-15T18:27:51.562Z",
+    "updated_at": "2026-07-15T18:27:51.562Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "f7b33b56-7417-48d3-ad02-ede4b4567bd7",
+  "fields": {
+    "branch": "317a16e4-343a-4822-bbef-751e82e43eb7",
+    "ingredient": "23dfc604-e6a0-4bcf-a2ee-6889164fabfa",
+    "stock_level": "100000.0000",
+    "last_purchase_price": "4.40",
+    "current_unit_cost": "4.0000",
+    "created_at": "2026-07-15T18:27:51.828Z",
+    "updated_at": "2026-07-15T18:27:51.828Z"
+  }
+},
+{
+  "model": "inventory.inventories",
+  "pk": "fdd507e3-c68f-4b15-bad1-6b701120fb48",
+  "fields": {
+    "branch": "3d1eb887-22d5-4d98-8115-0b12ff0a2bd8",
+    "ingredient": "f1173d29-a2d1-421d-988d-25a287c249b3",
+    "stock_level": "40000.0000",
+    "last_purchase_price": "104.50",
+    "current_unit_cost": "95.0000",
+    "created_at": "2026-07-15T18:27:51.686Z",
+    "updated_at": "2026-07-15T18:27:51.686Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "0128a89d-666f-4645-9d86-5b1cc6c0774f",
+  "fields": {
+    "product": "bc13b7d7-60dd-451b-95b7-cc5da85ac2c9",
+    "ingredient": "b86612c0-2c1e-40b0-a263-86648f15b091",
+    "quantity_required": "100.0000",
+    "created_at": "2026-07-15T18:27:52.008Z",
+    "updated_at": "2026-07-15T18:27:52.008Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "01c5e5b3-735f-471b-9eef-30af69f6b544",
+  "fields": {
+    "product": "ca7a863b-0e18-434a-9836-6c9faf91db31",
+    "ingredient": "37367b86-d854-4ffa-94e0-1b0763b091a5",
+    "quantity_required": "60.0000",
+    "created_at": "2026-07-15T18:27:52.100Z",
+    "updated_at": "2026-07-15T18:27:52.100Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "0ddf6fac-d183-4a6c-af3d-1a88e092ee8b",
+  "fields": {
+    "product": "8e6b130d-8f41-4198-9b55-a35245cb3b6f",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "quantity_required": "2.0000",
+    "created_at": "2026-07-15T18:27:52.133Z",
+    "updated_at": "2026-07-15T18:27:52.133Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "1c44c45c-f79a-4daf-b11a-83475c1e3f3e",
+  "fields": {
+    "product": "b88c969c-caa2-41ea-b88b-27c4073ae7ce",
+    "ingredient": "d1e0811a-2b93-47a2-b3a9-77dfeb1af20b",
+    "quantity_required": "200.0000",
+    "created_at": "2026-07-15T18:27:52.183Z",
+    "updated_at": "2026-07-15T18:27:52.183Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "1e4194a9-6ada-45bd-8f61-6b4c07cc404d",
+  "fields": {
+    "product": "054cb820-9710-4a6f-9ad1-5e7b6f6ef37c",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "quantity_required": "180.0000",
+    "created_at": "2026-07-15T18:27:51.908Z",
+    "updated_at": "2026-07-15T18:27:51.908Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "2a81f797-5d3c-4fe1-b402-3b590b91d096",
+  "fields": {
+    "product": "ca7a863b-0e18-434a-9836-6c9faf91db31",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "quantity_required": "30.0000",
+    "created_at": "2026-07-15T18:27:52.115Z",
+    "updated_at": "2026-07-15T18:27:52.115Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "2f3e9e13-4e87-477f-98fb-4d9e741c9abf",
+  "fields": {
+    "product": "bc13b7d7-60dd-451b-95b7-cc5da85ac2c9",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "quantity_required": "100.0000",
+    "created_at": "2026-07-15T18:27:52.002Z",
+    "updated_at": "2026-07-15T18:27:52.002Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "2fa95481-240c-4742-ac31-abca73ac6567",
+  "fields": {
+    "product": "e92f7efd-c448-4361-a2f0-98a53309ea98",
+    "ingredient": "37367b86-d854-4ffa-94e0-1b0763b091a5",
+    "quantity_required": "60.0000",
+    "created_at": "2026-07-15T18:27:52.198Z",
+    "updated_at": "2026-07-15T18:27:52.198Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "35c2ba39-4f46-4574-b752-b40b2878d2f5",
+  "fields": {
+    "product": "8e6b130d-8f41-4198-9b55-a35245cb3b6f",
+    "ingredient": "3e566af8-fbf3-4f98-acad-7de17508773f",
+    "quantity_required": "60.0000",
+    "created_at": "2026-07-15T18:27:52.129Z",
+    "updated_at": "2026-07-15T18:27:52.129Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "37d33167-9aa5-47d2-a867-3094a1ec8852",
+  "fields": {
+    "product": "b90b4b56-65c8-494a-9224-e242ede6e475",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:52.034Z",
+    "updated_at": "2026-07-15T18:27:52.034Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "39bf1e9e-e0c9-4396-b2a1-5bab56eb43c1",
+  "fields": {
+    "product": "b90b4b56-65c8-494a-9224-e242ede6e475",
+    "ingredient": "1f765e85-a299-451d-9b54-d2a47bf3dbab",
+    "quantity_required": "160.0000",
+    "created_at": "2026-07-15T18:27:52.023Z",
+    "updated_at": "2026-07-15T18:27:52.023Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "3d058d8e-7636-4901-b93f-b272ffefef36",
+  "fields": {
+    "product": "aba185ed-59b8-4dd7-a0a4-cf71b90561b2",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "quantity_required": "2.0000",
+    "created_at": "2026-07-15T18:27:52.161Z",
+    "updated_at": "2026-07-15T18:27:52.161Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "4031389d-f428-440a-a8b7-03fe97a5cab5",
+  "fields": {
+    "product": "839b2974-08fb-4fad-8cb1-1ebb26f3b809",
+    "ingredient": "9076432a-7f74-449e-a928-467c0186e0d9",
+    "quantity_required": "30.0000",
+    "created_at": "2026-07-15T18:27:51.878Z",
+    "updated_at": "2026-07-15T18:27:51.878Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "42b3921d-c349-45d7-bb21-fd6a997ec405",
+  "fields": {
+    "product": "d9933f70-845c-4710-9ae6-a15bead6007c",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "quantity_required": "10.0000",
+    "created_at": "2026-07-15T18:27:52.221Z",
+    "updated_at": "2026-07-15T18:27:52.221Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "44e8376f-39c4-4545-b8ad-dc37424c9145",
+  "fields": {
+    "product": "b9a8b39b-af99-4cd7-a560-a4f7b4315115",
+    "ingredient": "b86612c0-2c1e-40b0-a263-86648f15b091",
+    "quantity_required": "40.0000",
+    "created_at": "2026-07-15T18:27:51.942Z",
+    "updated_at": "2026-07-15T18:27:51.942Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "4a2c65e5-8df2-4f68-a383-77027807bc40",
+  "fields": {
+    "product": "839b2974-08fb-4fad-8cb1-1ebb26f3b809",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "quantity_required": "50.0000",
+    "created_at": "2026-07-15T18:27:51.857Z",
+    "updated_at": "2026-07-15T18:27:51.857Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "50dae75c-a2fd-43fe-a08e-9bf1bfef4f4e",
+  "fields": {
+    "product": "b90b4b56-65c8-494a-9224-e242ede6e475",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:52.029Z",
+    "updated_at": "2026-07-15T18:27:52.029Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "5761acb5-0c75-4d1b-bd09-bd62496da324",
+  "fields": {
+    "product": "ca7a863b-0e18-434a-9836-6c9faf91db31",
+    "ingredient": "cdd3978c-23bc-4a6a-b927-2aef2f3b3bcf",
+    "quantity_required": "45.0000",
+    "created_at": "2026-07-15T18:27:52.107Z",
+    "updated_at": "2026-07-15T18:27:52.107Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "59cc7f48-c2e1-4618-b8df-4f07604e259f",
+  "fields": {
+    "product": "e7e92266-5d9f-471d-a08c-680ebed8474c",
+    "ingredient": "5cea8116-514e-4778-a620-ea5a364798e4",
+    "quantity_required": "40.0000",
+    "created_at": "2026-07-15T18:27:52.067Z",
+    "updated_at": "2026-07-15T18:27:52.067Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "5f6881d7-d9ce-40c8-9159-8b0f75771c19",
+  "fields": {
+    "product": "ca7a863b-0e18-434a-9836-6c9faf91db31",
+    "ingredient": "23dfc604-e6a0-4bcf-a2ee-6889164fabfa",
+    "quantity_required": "100.0000",
+    "created_at": "2026-07-15T18:27:52.119Z",
+    "updated_at": "2026-07-15T18:27:52.119Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "5fd47130-98a2-45d5-968d-9a6c5e9c4eb3",
+  "fields": {
+    "product": "e9ab6b3a-4b7a-48c6-8853-cbdd1c1adec6",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "quantity_required": "2.0000",
+    "created_at": "2026-07-15T18:27:51.899Z",
+    "updated_at": "2026-07-15T18:27:51.899Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "656c8053-f2a6-4117-9292-6247e51973ee",
+  "fields": {
+    "product": "b90b4b56-65c8-494a-9224-e242ede6e475",
+    "ingredient": "9076432a-7f74-449e-a928-467c0186e0d9",
+    "quantity_required": "20.0000",
+    "created_at": "2026-07-15T18:27:52.042Z",
+    "updated_at": "2026-07-15T18:27:52.042Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "70e369be-717b-475c-84ad-efcae80e24b0",
+  "fields": {
+    "product": "054cb820-9710-4a6f-9ad1-5e7b6f6ef37c",
+    "ingredient": "995bd975-b163-4149-9442-3ce092057a8d",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:51.913Z",
+    "updated_at": "2026-07-15T18:27:51.913Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "73116a8a-0089-418d-8982-cd24bd38ed7a",
+  "fields": {
+    "product": "21fa12ac-c107-42ab-bcfd-1733ba8ae1f1",
+    "ingredient": "cdd3978c-23bc-4a6a-b927-2aef2f3b3bcf",
+    "quantity_required": "50.0000",
+    "created_at": "2026-07-15T18:27:52.231Z",
+    "updated_at": "2026-07-15T18:27:52.231Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "731e2a46-2519-49da-9f3a-b921017e88b8",
+  "fields": {
+    "product": "839b2974-08fb-4fad-8cb1-1ebb26f3b809",
+    "ingredient": "2121710f-f86c-4d47-a56f-2d04ead25c72",
+    "quantity_required": "150.0000",
+    "created_at": "2026-07-15T18:27:51.850Z",
+    "updated_at": "2026-07-15T18:27:51.850Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "779da314-f40e-4a8e-af47-f90b757d972e",
+  "fields": {
+    "product": "e92f7efd-c448-4361-a2f0-98a53309ea98",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:52.204Z",
+    "updated_at": "2026-07-15T18:27:52.204Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "79661261-7931-422b-af38-82f3dc30b97a",
+  "fields": {
+    "product": "ca7a863b-0e18-434a-9836-6c9faf91db31",
+    "ingredient": "371cd54f-69b9-4c1f-ae10-627df4f1eab7",
+    "quantity_required": "10.0000",
+    "created_at": "2026-07-15T18:27:52.111Z",
+    "updated_at": "2026-07-15T18:27:52.111Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "79c1f5b0-873f-473f-b7c0-675fc0d66986",
+  "fields": {
+    "product": "50a6ba26-7185-421b-9253-ff9262dbf66b",
+    "ingredient": "61ea5971-8e73-4b4e-b53f-7ec254ca71a8",
+    "quantity_required": "60.0000",
+    "created_at": "2026-07-15T18:27:52.081Z",
+    "updated_at": "2026-07-15T18:27:52.081Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "842137d3-fef6-482e-aa47-e404ac52c995",
+  "fields": {
+    "product": "aba185ed-59b8-4dd7-a0a4-cf71b90561b2",
+    "ingredient": "f1173d29-a2d1-421d-988d-25a287c249b3",
+    "quantity_required": "60.0000",
+    "created_at": "2026-07-15T18:27:52.156Z",
+    "updated_at": "2026-07-15T18:27:52.156Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "8a6e5b3d-ef95-4e61-88c7-96ed3e68bacd",
+  "fields": {
+    "product": "50a6ba26-7185-421b-9253-ff9262dbf66b",
+    "ingredient": "d1e0811a-2b93-47a2-b3a9-77dfeb1af20b",
+    "quantity_required": "200.0000",
+    "created_at": "2026-07-15T18:27:52.086Z",
+    "updated_at": "2026-07-15T18:27:52.086Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "905dd50e-77ee-403d-9a92-cea83f9b1f40",
+  "fields": {
+    "product": "30592792-812e-4f1a-82ab-a02df357828e",
+    "ingredient": "a180116b-7b06-4226-a880-a3cbad6f0710",
+    "quantity_required": "400.0000",
+    "created_at": "2026-07-15T18:27:51.953Z",
+    "updated_at": "2026-07-15T18:27:51.953Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "97cb7c3d-14b3-4424-8eac-857f8a67d265",
+  "fields": {
+    "product": "e7e92266-5d9f-471d-a08c-680ebed8474c",
+    "ingredient": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+    "quantity_required": "250.0000",
+    "created_at": "2026-07-15T18:27:52.053Z",
+    "updated_at": "2026-07-15T18:27:52.053Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "98cabd76-4c81-499e-aa1a-8bea1f521b86",
+  "fields": {
+    "product": "b88c969c-caa2-41ea-b88b-27c4073ae7ce",
+    "ingredient": "61ea5971-8e73-4b4e-b53f-7ec254ca71a8",
+    "quantity_required": "50.0000",
+    "created_at": "2026-07-15T18:27:52.177Z",
+    "updated_at": "2026-07-15T18:27:52.177Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "9ef089cc-8327-4ad1-95f9-45efd46894a3",
+  "fields": {
+    "product": "8e6b130d-8f41-4198-9b55-a35245cb3b6f",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "quantity_required": "20.0000",
+    "created_at": "2026-07-15T18:27:52.138Z",
+    "updated_at": "2026-07-15T18:27:52.138Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "a67f173f-0629-44f0-8f64-f46cf43c8cf3",
+  "fields": {
+    "product": "e9ab6b3a-4b7a-48c6-8853-cbdd1c1adec6",
+    "ingredient": "2121710f-f86c-4d47-a56f-2d04ead25c72",
+    "quantity_required": "160.0000",
+    "created_at": "2026-07-15T18:27:51.889Z",
+    "updated_at": "2026-07-15T18:27:51.889Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "a9113664-37ec-4246-9bec-e1a00b3a769c",
+  "fields": {
+    "product": "582e37b4-03fb-44dd-b9f5-15272c6ec8b9",
+    "ingredient": "d93c5ed3-4632-4227-adc2-cb524890011e",
+    "quantity_required": "350.0000",
+    "created_at": "2026-07-15T18:27:51.987Z",
+    "updated_at": "2026-07-15T18:27:51.987Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "a96d086b-bd44-4481-b7df-94c69bb493ca",
+  "fields": {
+    "product": "e7e92266-5d9f-471d-a08c-680ebed8474c",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "quantity_required": "2.0000",
+    "created_at": "2026-07-15T18:27:52.059Z",
+    "updated_at": "2026-07-15T18:27:52.059Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "ad6e53f1-7190-4a86-bf55-ad787bff9d45",
+  "fields": {
+    "product": "d9933f70-845c-4710-9ae6-a15bead6007c",
+    "ingredient": "3e566af8-fbf3-4f98-acad-7de17508773f",
+    "quantity_required": "50.0000",
+    "created_at": "2026-07-15T18:27:52.215Z",
+    "updated_at": "2026-07-15T18:27:52.215Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "b24a87a5-c48f-433c-8bce-423777d8ed69",
+  "fields": {
+    "product": "b9a8b39b-af99-4cd7-a560-a4f7b4315115",
+    "ingredient": "1f765e85-a299-451d-9b54-d2a47bf3dbab",
+    "quantity_required": "150.0000",
+    "created_at": "2026-07-15T18:27:51.928Z",
+    "updated_at": "2026-07-15T18:27:51.928Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "b301c2d7-8214-4c37-b6d5-4db8e54e4368",
+  "fields": {
+    "product": "e9ab6b3a-4b7a-48c6-8853-cbdd1c1adec6",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "quantity_required": "0.9999",
+    "created_at": "2026-07-15T18:27:51.894Z",
+    "updated_at": "2026-08-24T18:14:06.312Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "bac74607-d20a-4a62-b2e2-3951b62dde7a",
+  "fields": {
+    "product": "30592792-812e-4f1a-82ab-a02df357828e",
+    "ingredient": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+    "quantity_required": "150.0000",
+    "created_at": "2026-07-15T18:27:51.964Z",
+    "updated_at": "2026-07-15T18:27:51.964Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "bbfa8e08-57c7-4856-842e-49c0f997a50c",
+  "fields": {
+    "product": "21fa12ac-c107-42ab-bcfd-1733ba8ae1f1",
+    "ingredient": "23dfc604-e6a0-4bcf-a2ee-6889164fabfa",
+    "quantity_required": "250.0000",
+    "created_at": "2026-07-15T18:27:52.237Z",
+    "updated_at": "2026-07-15T18:27:52.237Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "bc746e9f-1559-4230-ad75-ebf4799a75b4",
+  "fields": {
+    "product": "839b2974-08fb-4fad-8cb1-1ebb26f3b809",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:51.865Z",
+    "updated_at": "2026-07-15T18:27:51.865Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "be3beedf-f324-4942-a9cc-ed29823cdd89",
+  "fields": {
+    "product": "582e37b4-03fb-44dd-b9f5-15272c6ec8b9",
+    "ingredient": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+    "quantity_required": "60.0000",
+    "created_at": "2026-07-15T18:27:51.992Z",
+    "updated_at": "2026-07-15T18:27:51.992Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "c016e2aa-c7fc-4b9e-bd3f-7cc843a959f7",
+  "fields": {
+    "product": "b9a8b39b-af99-4cd7-a560-a4f7b4315115",
+    "ingredient": "1995bd5d-3475-469d-b6a5-c1200facc05a",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:51.936Z",
+    "updated_at": "2026-07-15T18:27:51.936Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "c78851a4-00e4-4b46-b172-9d71b27625d8",
+  "fields": {
+    "product": "3ea86e9c-a43d-4be5-9cc6-9a664e349cfe",
+    "ingredient": "f593413e-fa8a-430f-a6e7-d1ce5b83fb10",
+    "quantity_required": "300.0000",
+    "created_at": "2026-07-15T18:27:51.975Z",
+    "updated_at": "2026-07-15T18:27:51.975Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "c9da9bfb-28d4-4dcd-8e11-bf62b3c7d50b",
+  "fields": {
+    "product": "30592792-812e-4f1a-82ab-a02df357828e",
+    "ingredient": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+    "quantity_required": "80.0000",
+    "created_at": "2026-07-15T18:27:51.959Z",
+    "updated_at": "2026-07-15T18:27:51.959Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "cf69d2eb-1179-45ad-a355-85b90f003f5e",
+  "fields": {
+    "product": "839b2974-08fb-4fad-8cb1-1ebb26f3b809",
+    "ingredient": "b3bb2dbd-ab41-4994-b6c9-b5ea7c2bd2ff",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:51.871Z",
+    "updated_at": "2026-07-15T18:27:51.871Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "d7fa7c15-746f-4d30-a5b5-75838cc433be",
+  "fields": {
+    "product": "aba185ed-59b8-4dd7-a0a4-cf71b90561b2",
+    "ingredient": "9e481a68-6580-461f-b308-9f642abc5919",
+    "quantity_required": "15.0000",
+    "created_at": "2026-07-15T18:27:52.165Z",
+    "updated_at": "2026-07-15T18:27:52.165Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "e8734505-8be4-4701-8af3-bac651126eb5",
+  "fields": {
+    "product": "21fa12ac-c107-42ab-bcfd-1733ba8ae1f1",
+    "ingredient": "371cd54f-69b9-4c1f-ae10-627df4f1eab7",
+    "quantity_required": "5.0000",
+    "created_at": "2026-07-15T18:27:52.242Z",
+    "updated_at": "2026-07-15T18:27:52.242Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "e95e8c6a-3244-47b1-89f3-ce49a33c9f5a",
+  "fields": {
+    "product": "50a6ba26-7185-421b-9253-ff9262dbf66b",
+    "ingredient": "73596c5e-95dc-44c0-a9e1-03285885eb5c",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:52.090Z",
+    "updated_at": "2026-07-15T18:27:52.090Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "f450fcb6-2a20-495f-a6f2-8ea4a60dc449",
+  "fields": {
+    "product": "bc13b7d7-60dd-451b-95b7-cc5da85ac2c9",
+    "ingredient": "995bd975-b163-4149-9442-3ce092057a8d",
+    "quantity_required": "1.0000",
+    "created_at": "2026-07-15T18:27:52.013Z",
+    "updated_at": "2026-07-15T18:27:52.013Z"
+  }
+},
+{
+  "model": "inventory.recipes",
+  "pk": "fb392fa7-6ea0-4d07-8db3-62ca328a30bf",
+  "fields": {
+    "product": "054cb820-9710-4a6f-9ad1-5e7b6f6ef37c",
+    "ingredient": "1d76b7c8-68a9-4778-8487-233dfe6fadc8",
+    "quantity_required": "50.0000",
+    "created_at": "2026-07-15T18:27:51.918Z",
+    "updated_at": "2026-07-15T18:27:51.918Z"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$IyhUn7QrFIcQMEsJmkGfET$7gRHWx5vU964+5Yk+RfVEQmi0mhQpladgOB8TzmHQBQ=",
+    "last_login": "2026-09-17T17:30:58.746Z",
+    "is_superuser": true,
+    "username": "Alejo",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-15T18:25:10.696Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
