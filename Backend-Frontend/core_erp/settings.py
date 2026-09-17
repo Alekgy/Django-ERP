@@ -26,7 +26,19 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-cambiame')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    '.vercel.app',
+    'misenplace.bistroos.app',
+    '.bistroos.app',
+    'localhost',
+    '127.0.0.1',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'https://misenplace.bistroos.app',
+    'https://*.bistroos.app',
+]
 
 
 # Application definition
