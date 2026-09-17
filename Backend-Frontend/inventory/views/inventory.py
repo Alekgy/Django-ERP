@@ -1,6 +1,7 @@
 import json
 import uuid
 from decimal import Decimal
+from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -220,15 +221,22 @@ def modulo_caja(request):
         })
         mesas_dict[mesa]['total'] += float(venta.total_sale_price)
 
+    hoy = timezone.now().date()
+    ventas_cerradas_turno = ventas_cerradas.filter(created_at__date=hoy)
+
+    # Si hoy aún no hay ventas cerradas (por ser temprano), toma las últimas 20 comandas individuales
+    if not ventas_cerradas_turno.exists():
+        ventas_cerradas_turno = ventas_cerradas
+
     ventas_cerradas_agrupadas = (
-        ventas_cerradas.annotate(
+        ventas_cerradas_turno.annotate(
             fecha_minuto=TruncMinute('created_at'),
-            id_texto=Cast('id', output_field=CharField()) # Convierte el UUID a String para PostgreSQL
+            id_texto=Cast('id', output_field=CharField())
         )
         .values('table_name', 'fecha_minuto', 'payment_method__name')
         .annotate(
             total_cuenta=Sum('total_sale_price'),
-            ticket_id=Min('id_texto') # PostgreSQL sí soporta MIN en cadenas de texto
+            ticket_id=Min('id_texto')
         )
         .order_by('-fecha_minuto')[:15]
     )
