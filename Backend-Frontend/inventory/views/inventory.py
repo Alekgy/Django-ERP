@@ -1,7 +1,6 @@
 import json
 import uuid
 from decimal import Decimal
-from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -221,32 +220,20 @@ def modulo_caja(request):
         })
         mesas_dict[mesa]['total'] += float(venta.total_sale_price)
 
-    hoy = timezone.now().date()
-    ventas_cerradas_turno = ventas_cerradas.filter(created_at__date=hoy)
-
-    # Si hoy aún no hay ventas cerradas (por ser temprano), toma las últimas 20 comandas individuales
-    if not ventas_cerradas_turno.exists():
-        ventas_cerradas_turno = ventas_cerradas
-
-    ventas_cerradas_agrupadas = (
-        ventas_cerradas_turno.annotate(
-            fecha_minuto=TruncMinute('created_at'),
-            id_texto=Cast('id', output_field=CharField())
-        )
-        .values('table_name', 'fecha_minuto', 'payment_method__name')
-        .annotate(
-            total_cuenta=Sum('total_sale_price'),
-            ticket_id=Min('id_texto')
-        )
-        .order_by('-fecha_minuto')[:15]
+    mesas_cerradas_lista = (
+        ventas_cerradas
+        .select_related('payment_method', 'product')
+        .order_by('-created_at')[:20]  # Trae las últimas 20 transacciones individuales
     )
+
+    metodos_pago = PaymentMethods.objects.filter(is_active=True)
 
     # Obtenemos los métodos de pago habilitados
     metodos_pago = PaymentMethods.objects.filter(is_active=True)
 
     return render(request, 'inventory/caja.html', {
         'mesas_abiertas': mesas_dict,
-        'mesas_cerradas': ventas_cerradas_agrupadas,
+        'mesas_cerradas': mesas_cerradas_lista,
         'metodos_pago': metodos_pago,
         'umbral': umbral
     })

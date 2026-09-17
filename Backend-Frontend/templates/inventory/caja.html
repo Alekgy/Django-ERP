@@ -127,41 +127,42 @@
                                 <td class="ps-4">
                                     <div class="fw-bold text-dark">{{ cuenta.table_name }}</div>
                                     <small class="text-muted text-uppercase font-monospace" style="font-size: 0.75rem;">
-                                        Ticket #{{ cuenta.ticket_id|stringformat:"s"|slice:":8" }}
+                                        Ticket #{{ cuenta.id|stringformat:"s"|slice:":8" }}
                                     </small>
                                 </td>
                                 
+                                <!-- Valor real individual de la venta -->
                                 <td class="fw-bold text-success fs-6">
-                                    $ {{ cuenta.total_cuenta|floatformat:0|intcomma }}
+                                    $ {{ cuenta.total_sale_price|floatformat:0|intcomma }}
                                 </td>
                                 
                                 <td>
                                     <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fw-semibold">
                                         <i class="bi bi-credit-card-2-front me-1 text-primary"></i>
-                                        {{ cuenta.payment_method__name|default:"Efectivo" }}
+                                        {{ cuenta.payment_method.name|default:"Efectivo" }}
                                     </span>
                                 </td>
                                 
                                 <td>
                                     <div class="small fw-semibold text-dark">
-                                        <i class="bi bi-clock me-1 text-muted"></i>{{ cuenta.fecha_minuto|date:"h:i A" }}
+                                        <i class="bi bi-clock me-1 text-muted"></i>{{ cuenta.created_at|date:"h:i A" }}
                                     </div>
                                     <small class="text-muted" style="font-size: 0.75rem;">
-                                        {{ cuenta.fecha_minuto|date:"d M Y" }}
+                                        {{ cuenta.created_at|date:"d M Y" }}
                                     </small>
                                 </td>
                                 
-                                <!-- <td class="text-end pe-4">
+                                <td class="text-end pe-4">
                                     <button class="btn btn-sm btn-outline-dark rounded-pill px-3 shadow-sm">
                                         <i class="bi bi-printer me-1"></i> Reimprimir
                                     </button>
-                                </td> -->
+                                </td>
                             </tr>
                             {% empty %}
                             <tr>
                                 <td colspan="5" class="text-center py-5 text-muted">
                                     <i class="bi bi-receipt fs-3 d-block mb-2"></i>
-                                    No hay registros de mesas cerradas en este turno.
+                                    No hay registros de mesas cerradas.
                                 </td>
                             </tr>
                             {% endfor %}
