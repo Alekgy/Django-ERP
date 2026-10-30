@@ -144,7 +144,7 @@ NUMBER_GROUPING = 3
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
+STATIC_URL = '/misenplace/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -201,3 +201,21 @@ LOGOUT_REDIRECT_URL = 'login'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ==========================================
+# 3. SUBPATH & REVERSE PROXY CONFIGURATION
+# ==========================================
+
+# Fuerza a Django a generar todas las URLs relativas anteponiendo /misenplace
+FORCE_SCRIPT_NAME = '/misenplace'
+
+# Aísla las cookies para evitar conflictos con otras aplicaciones bajo bistroos.app
+SESSION_COOKIE_PATH = '/misenplace/'
+CSRF_COOKIE_PATH = '/misenplace/'
+SESSION_COOKIE_NAME = 'sessionid_misenplace'
+CSRF_COOKIE_NAME = 'csrftoken_misenplace'
+
+# Confía en las cabeceras HTTPS enviadas por el proxy de Cloudflare
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
