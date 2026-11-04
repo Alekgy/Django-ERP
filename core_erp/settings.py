@@ -9,43 +9,49 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
 import os
-from dotenv import load_dotenv
 from pathlib import Path
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ==============================================================================
+# 1. RUTAS BASE Y ENTORNO
+# ==============================================================================
+
+# BASE_DIR apunta a la raíz del repositorio (donde reside manage.py)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Carga de variables de entorno con ruta absoluta
+# Carga de variables de entorno desde el archivo .env en la raíz
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-cambiame')
+# ==============================================================================
+# 2. SEGURIDAD Y DOMINIOS
+# ==============================================================================
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+SECRET_KEY = os.getenv('SECRET_KEY')
 
+# DEBUG se activa solo si la variable de entorno es 'True' o '1' (por defecto False)
+DEBUG = os.getenv('DEBUG')
 ALLOWED_HOSTS = [
-    '.vercel.app',
-    '.onrender.com',               # Permite cualquier subdominio de render.com (incluyendo misen-place.onrender.com)
-    'misen-place.onrender.com',
-    'misenplace.bistroos.app',
-    '.bistroos.app',
     'localhost',
     '127.0.0.1',
+    '.onrender.com',               # Permite cualquier subdominio en Render
+    'misen-place.onrender.com',    # Host directo en Render
+    'misenplace.bistroos.app',     # Subdominio oficial en Cloudflare
+    '.bistroos.app',               # Dominio raíz y futuros subdominios
+    '.vercel.app',                 # Compatibilidad si aún tienes vistas allí
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
     'https://misen-place.onrender.com',
-    'https://*.vercel.app',
     'https://misenplace.bistroos.app',
     'https://*.bistroos.app',
+    'https://*.vercel.app',
 ]
 
-
-# Application definition
+# ==============================================================================
+# 3. APLICACIONES Y MIDDLEWARES
+# ==============================================================================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,13 +61,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'inventory',
+    # Aplicaciones de terceros
     'storages',
+    # Aplicaciones locales
+    'inventory',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise inmediatamente tras Security
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,6 +79,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core_erp.urls'
+
+WSGI_APPLICATION = 'core_erp.wsgi.application'
+
+# ==============================================================================
+# 4. PLANTILLAS (TEMPLATES)
+# ==============================================================================
 
 TEMPLATES = [
     {
@@ -83,25 +97,22 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'inventory.views.sedes_context_processor',
                 'django.template.context_processors.media',
+                # Context processor de sedes (asegurar su exposición en inventory/views/__init__.py)
+                'inventory.views.sedes_context_processor',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'core_erp.wsgi.application'
-
-
-# ==========================================
-# 1. DATABASE CONFIGURATION (Supabase / SQLite)
-# ==========================================
+# ==============================================================================
+# 5. BASE DE DATOS (Supabase PostgreSQL / SQLite Local)
+# ==============================================================================
 
 DB_HOST = os.getenv('DB_HOST')
 DB_NAME = os.getenv('DB_NAME')
 
 if DB_HOST and DB_NAME:
-    # Conexión a Supabase (PostgreSQL)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -116,7 +127,6 @@ if DB_HOST and DB_NAME:
         }
     }
 else:
-    # Base de datos local SQLite para desarrollo sin variables de entorno
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -124,38 +134,14 @@ else:
         }
     }
 
+# ==============================================================================
+# 6. ARCHIVOS ESTÁTICOS Y ALMACENAMIENTO (WhiteNoise / Supabase S3)
+# ==============================================================================
 
-# Password validation
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
-
-
-# Internationalization
-LANGUAGE_CODE = 'es-co'
-TIME_ZONE = 'America/Bogota'
-USE_I18N = True
-USE_TZ = True
-
-USE_L10N = True 
-USE_THOUSAND_SEPARATOR = False 
-THOUSAND_SEPARATOR = '.' 
-DECIMAL_SEPARATOR = ','  
-NUMBER_GROUPING = 3
-
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/misenplace/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-
-# ==========================================
-# 2. MEDIA & STORAGE (Supabase S3 / Local)
-# ==========================================
+# URL estándar limpia para WhiteNoise
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -197,30 +183,52 @@ else:
         },
     }
 
+# ==============================================================================
+# 7. INTERNACIONALIZACIÓN Y MONEDA (Colombia - COP)
+# ==============================================================================
 
-# --- CONFIGURACIÓN DE LOGIN ---
+LANGUAGE_CODE = 'es-co'
+TIME_ZONE = 'America/Bogota'
+USE_I18N = True
+USE_TZ = True
+
+# Separadores numéricos colombianos
+USE_THOUSAND_SEPARATOR = True
+THOUSAND_SEPARATOR = '.'
+DECIMAL_SEPARATOR = ','
+NUMBER_GROUPING = 3
+
+# ==============================================================================
+# 8. AUTENTICACIÓN Y POLÍTICA DE COOKIES
+# ==============================================================================
+
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# ==========================================
-# 3. SUBPATH & REVERSE PROXY CONFIGURATION
-# ==========================================
-
-# Fuerza a Django a generar todas las URLs relativas anteponiendo /misenplace
-# FORCE_SCRIPT_NAME = '/misenplace'
-
-# Aísla las cookies para evitar conflictos con otras aplicaciones bajo bistroos.app
-SESSION_COOKIE_PATH = '/misenplace/'
-CSRF_COOKIE_PATH = '/misenplace/'
+# Nombres de cookie personalizados (evitan colisiones con otras apps en bistroos.app)
 SESSION_COOKIE_NAME = 'sessionid_misenplace'
 CSRF_COOKIE_NAME = 'csrftoken_misenplace'
+
+# IMPORTANTE: Ruta raíz para que las sesiones y CSRF funcionen en todo el subdominio
+SESSION_COOKIE_PATH = '/'
+CSRF_COOKIE_PATH = '/'
+
+# Vista personalizada para fallos de verificación CSRF
 CSRF_FAILURE_VIEW = 'inventory.views.errors.csrf_failure'
 
-# Confía en las cabeceras HTTPS enviadas por el proxy de Cloudflare
+# ==============================================================================
+# 9. REVERSE PROXY & CLOUDFLARE SSL
+# ==============================================================================
+
+# Reconoce el tráfico HTTPS proveniente del proxy de Cloudflare / Render
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
