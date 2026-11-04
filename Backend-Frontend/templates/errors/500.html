@@ -1,0 +1,15 @@
+{% extends 'errors/base_error.html' %}
+{% block error_actions %}
+<a href="{% url 'admin_panel' %}" class="btn-misen-dark">
+    <i class="bi bi-arrow-repeat"></i> Volver a la Barra
+</a>
+
+<div class="divider-container">
+    <div class="divider-line"></div>
+    <span class="divider-pill">O</span>
+</div>
+
+<button type="button" onclick="window.location.reload()" class="btn-misen-outline">
+    <i class="bi bi-arrow-clockwise"></i> Reintentar Carga
+</button>
+{% endblock %}

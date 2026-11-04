@@ -1,0 +1,18 @@
+{% extends 'errors/base_error.html' %}
+{% block error_actions %}
+<div class="mb-2">
+    <textarea id="errorDetail" rows="2" class="form-control border-0 rounded-3 mb-2" placeholder="¿Qué estabas buscando? (Opcional)"></textarea>
+    <button type="button" class="btn-misen-dark" onclick="this.innerHTML='¡Reporte Enviado!'; this.disabled=true;">
+        <i class="bi bi-send-fill"></i> Enviar Reporte Técnico
+    </button>
+</div>
+
+<div class="divider-container">
+    <div class="divider-line"></div>
+    <span class="divider-pill">O</span>
+</div>
+
+<a href="{% url 'admin_panel' %}" class="btn-misen-outline">
+    <i class="bi bi-grid-fill"></i> Ir al Panel de Control
+</a>
+{% endblock %}
