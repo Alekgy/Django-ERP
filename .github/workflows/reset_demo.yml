@@ -26,7 +26,6 @@ jobs:
           pip install -r Backend-Frontend/requirements.txt
 
       - name: Ejecutar reseteo de la Base de Datos
-        working-directory: ./Backend-Frontend
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: 'False'
