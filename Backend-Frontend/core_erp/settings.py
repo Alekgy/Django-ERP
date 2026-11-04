@@ -28,6 +28,8 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
     '.vercel.app',
+    '.onrender.com',               # Permite cualquier subdominio de render.com (incluyendo misen-place.onrender.com)
+    'misen-place.onrender.com',
     'misenplace.bistroos.app',
     '.bistroos.app',
     'localhost',
@@ -35,6 +37,8 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'https://misen-place.onrender.com',
     'https://*.vercel.app',
     'https://misenplace.bistroos.app',
     'https://*.bistroos.app',
