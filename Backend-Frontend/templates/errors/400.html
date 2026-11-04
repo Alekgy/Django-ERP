@@ -1,0 +1,16 @@
+{% extends 'errors/base_error.html' %}
+
+{% block error_actions %}
+<a href="{% url 'admin_panel' %}" class="btn-misen-dark">
+    <i class="bi bi-grid-fill"></i> Ir al Panel de Control
+</a>
+
+<div class="divider-container">
+    <div class="divider-line"></div>
+    <span class="divider-pill">O</span>
+</div>
+
+<button type="button" onclick="history.back()" class="btn-misen-outline">
+    <i class="bi bi-arrow-left"></i> Volver a la pantalla anterior
+</button>
+{% endblock %}

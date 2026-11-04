@@ -3,11 +3,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from inventory import views 
+from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('demo-access/', views.demo_login, name='demo_login'),
     path('demo/', views.demo_login, name='demo_directo'),
     path('', views.home_redirect, name='home'),
     path('cambiar-sede/<str:branch_id>/', views.cambiar_sede_sesion, name='cambiar_sede_sesion'),
@@ -76,6 +76,10 @@ urlpatterns = [
     path('perfil/cambiar-password/', views.cambiar_mi_password, name='cambiar_mi_password'),
 ]
 
+handler400 = 'inventory.views.errors.error_400'
+handler403 = 'inventory.views.errors.error_403'
+handler404 = 'inventory.views.errors.error_404'
+handler500 = 'inventory.views.errors.error_500'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
