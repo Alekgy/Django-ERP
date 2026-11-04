@@ -30,7 +30,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # DEBUG se activa solo si la variable de entorno es 'True' o '1' (por defecto False)
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
