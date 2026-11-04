@@ -24,7 +24,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-cambiame')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '.vercel.app',
@@ -212,13 +212,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ==========================================
 
 # Fuerza a Django a generar todas las URLs relativas anteponiendo /misenplace
-FORCE_SCRIPT_NAME = '/misenplace'
+# FORCE_SCRIPT_NAME = '/misenplace'
 
 # Aísla las cookies para evitar conflictos con otras aplicaciones bajo bistroos.app
 SESSION_COOKIE_PATH = '/misenplace/'
 CSRF_COOKIE_PATH = '/misenplace/'
 SESSION_COOKIE_NAME = 'sessionid_misenplace'
 CSRF_COOKIE_NAME = 'csrftoken_misenplace'
+CSRF_FAILURE_VIEW = 'inventory.views.errors.csrf_failure'
 
 # Confía en las cabeceras HTTPS enviadas por el proxy de Cloudflare
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
